@@ -66,6 +66,7 @@ public class Wheel extends GameEntity implements Actor {
 		constraintBuilder = getOwner().createWheelConstraintBuilder();
 		constraintBuilder.setMotorEnabled(true);
 		constraintBuilder.setMotorSpeed(speed);
+		constraint = constraintBuilder.build();
 	}
 	
 	public void relax() {

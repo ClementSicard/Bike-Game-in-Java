@@ -90,7 +90,6 @@ public abstract class ActorGame implements Game{
 	
 	public void setViewCandidate(Positionable viewCandidate) {
 		this.viewCandidate = viewCandidate;
-		
 	}
 	
 	public EntityBuilder createEntityBuilder() {

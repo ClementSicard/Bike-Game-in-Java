@@ -12,8 +12,6 @@ public abstract class GameEntity {
 	private Entity entity;
 	private ActorGame game;
 	private EntityBuilder builder;
-	private ImageGraphics graphics;
-	private ShapeGraphics graphics2;
 	
 	public GameEntity(ActorGame game, boolean fixed, Vector position) {
 		this.game = game;
