@@ -1,6 +1,7 @@
 package ch.epfl.cs107.play;
 
 import ch.epfl.cs107.play.game.Game;
+import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.actor.crate.CrateGame;
 import ch.epfl.cs107.play.game.tutorial.*;
 import ch.epfl.cs107.play.io.DefaultFileSystem;

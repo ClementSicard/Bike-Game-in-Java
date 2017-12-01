@@ -1,6 +1,8 @@
 package ch.epfl.cs107.play.game.actor.crate;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+import ch.epfl.cs107.play.game.actor.*;
+import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.EntityBuilder;

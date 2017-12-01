@@ -1,6 +1,8 @@
-package ch.epfl.cs107.play.game.actor.crate;
+package ch.epfl.cs107.play.game.actor.general;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+import ch.epfl.cs107.play.game.actor.*;
+import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
 import ch.epfl.cs107.play.math.Transform;
@@ -13,7 +15,7 @@ public class Crate extends GameEntity implements Actor {
 	private ImageGraphics graphics;
 	
 	
-	Crate (ActorGame game, boolean fixed, Vector position, float friction, float height, float width) {
+	public Crate (ActorGame game, boolean fixed, Vector position, float friction, float height, float width) {
 		super(game, fixed, position);
 		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon(
@@ -29,7 +31,7 @@ public class Crate extends GameEntity implements Actor {
 	 
 	}
 	 
-	Crate(ActorGame game, boolean fixed, float friction, float height, float width) {
+	public Crate(ActorGame game, boolean fixed, float friction, float height, float width) {
 		super(game, fixed);
 		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon(

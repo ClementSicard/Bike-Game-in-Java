@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.actor.crate;
+package ch.epfl.cs107.play.game.actor;
 
 import java.util.ArrayList;
 

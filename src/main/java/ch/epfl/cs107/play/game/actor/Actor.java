@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.actor.crate;
+package ch.epfl.cs107.play.game.actor;
 
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.math.Positionable;

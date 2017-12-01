@@ -1,16 +1,16 @@
-package ch.epfl.cs107.play.game.actor.crate;
+package ch.epfl.cs107.play.game.actor;
 
 import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.EntityBuilder;
 import ch.epfl.cs107.play.math.Vector;
 
-abstract class GameEntity {
+public abstract class GameEntity {
 	
 	private Entity entity;
 	private ActorGame game;
 	private EntityBuilder builder;
 	
-	GameEntity(ActorGame game, boolean fixed, Vector position) {
+	public GameEntity(ActorGame game, boolean fixed, Vector position) {
 		this.game = game;
 		builder = game.createEntityBuilder();
 		builder.setPosition(position);
@@ -18,7 +18,7 @@ abstract class GameEntity {
 		entity = builder.build();	
 	}
 	
-	GameEntity(ActorGame game, boolean fixed) {
+	public GameEntity(ActorGame game, boolean fixed) {
 		this.game = game;
 		builder = this.game.createEntityBuilder();
 		builder.setFixed(fixed);	
