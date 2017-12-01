@@ -4,6 +4,7 @@ import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.EntityBuilder;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.math.WheelConstraintBuilder;
 import ch.epfl.cs107.play.window.Canvas;
 
 public abstract class GameEntity {
@@ -16,7 +17,7 @@ public abstract class GameEntity {
 	
 	public GameEntity(ActorGame game, boolean fixed, Vector position) {
 		this.game = game;
-		builder = game.createEntityBuilder();
+		builder = this.game.createEntityBuilder();
 		builder.setPosition(position);
 		builder.setFixed(fixed);
 		entity = builder.build();	
@@ -48,4 +49,5 @@ public abstract class GameEntity {
 	public Vector getVelocity() { 
 		return getEntity().getVelocity();
 	}
+
 }

@@ -8,6 +8,7 @@ import ch.epfl.cs107.play.math.EntityBuilder;
 import ch.epfl.cs107.play.math.Positionable;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
+import ch.epfl.cs107.play.math.WheelConstraintBuilder;
 import ch.epfl.cs107.play.math.World;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
@@ -94,6 +95,10 @@ public abstract class ActorGame implements Game{
 	
 	public EntityBuilder createEntityBuilder() {
 		return world.createEntityBuilder();
+	}
+	
+	public WheelConstraintBuilder createWheelConstraintBuilder() {
+		return world.createWheelConstraintBuilder();
 	}
 	
 	public void addActor(Actor actor) {

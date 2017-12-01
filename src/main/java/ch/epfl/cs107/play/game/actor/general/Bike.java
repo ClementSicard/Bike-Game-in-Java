@@ -13,6 +13,7 @@ public class Bike extends GameEntity implements Actor{
 	
 	private PartBuilder partBuilder;
 	private ImageGraphics graphics;
+	private Wheel leftWheel, rightWheel;
 	public final static float MAX_WHEEL_SPEED = 20.0f;
 	
 	
@@ -26,15 +27,13 @@ public class Bike extends GameEntity implements Actor{
 				0.0f, 2.0f,
 				-0.5f, 1.0f);
 		partBuilder.setShape(polygon);
-		partBuilder.setFriction(0.5f);
-		
 		partBuilder.setGhost(true);
 		partBuilder.build();
-		Wheel wheel1 = new Wheel(getOwner(), 0.5f, new Vector(4.0f, 5.0f));
-		Wheel wheel2 = new Wheel(getOwner(), 0.5f, new Vector(4.0f, 5.0f));
 		
-		graphics.setParent(this);
-		game.addActor(this);
+		leftWheel = new Wheel(getOwner(), 0.5f);
+		rightWheel = new Wheel(getOwner(), 0.5f);
+		leftWheel.attach(getEntity(), new Vector(-1.0f, 0.0f), new Vector(-0.5f, -1.0f));
+		rightWheel.attach(getEntity(), new Vector(1.0f, 0.0f), new Vector(0.5f, -1.0f));
 		
 	}
 
@@ -42,5 +41,13 @@ public class Bike extends GameEntity implements Actor{
 	public void draw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public Wheel getLeftWheel() {
+		return leftWheel;
+	}
+	
+	public Wheel getRightWheel() {
+		return rightWheel;
 	}
 }

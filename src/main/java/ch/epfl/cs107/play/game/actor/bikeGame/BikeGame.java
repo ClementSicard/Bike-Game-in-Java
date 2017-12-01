@@ -35,7 +35,7 @@ public class BikeGame extends ActorGame {
 		addActor(crate2);
 		addActor(crate3);
 		addActor(bike);
-		this.setViewCandidate(bike);
+		this.setViewCandidate(null);
 		return true;
 	}
 	
@@ -44,11 +44,11 @@ public class BikeGame extends ActorGame {
 	    	
 	        if (this.getKeyboard().get(KeyEvent.VK_LEFT).isDown()) 
             { 
-            	ball.applyAngularForce(5.0f);
+	        	bike.getRightWheel().power(5.0f);
             } 
             else if (this.getKeyboard().get(KeyEvent.VK_RIGHT).isDown()) 
             { 
-            	ball.applyAngularForce(-5.0f);
+            	bike.getLeftWheel().power(-5.0f);
             }
 	    }
 

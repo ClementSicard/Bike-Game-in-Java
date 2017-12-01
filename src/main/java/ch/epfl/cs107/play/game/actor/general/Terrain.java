@@ -40,7 +40,7 @@ public class Terrain extends GameEntity implements Actor {
 		partBuilder.setFriction(1.5f);
 		partBuilder.setShape(polyline);
 		partBuilder.build();
-		graphics = new ShapeGraphics(polyline, Color.GREEN, Color.LIGHT_GRAY, 1.0f, 1.0f, 0.0f);
+		graphics = new ShapeGraphics(polyline, Color.BLACK, Color.DARK_GRAY, 0.1f, 1.0f, 0.0f);
 		graphics.setParent(this);
 		game.addActor(this);
 

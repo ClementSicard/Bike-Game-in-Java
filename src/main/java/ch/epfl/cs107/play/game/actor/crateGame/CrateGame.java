@@ -13,7 +13,7 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.math.World;
 import ch.epfl.cs107.play.window.Window;
 
-public class CrateGame extends ActorGame{
+public class CrateGame extends ActorGame {
 	
 	private Crate crate1, crate2, crate3;
 	

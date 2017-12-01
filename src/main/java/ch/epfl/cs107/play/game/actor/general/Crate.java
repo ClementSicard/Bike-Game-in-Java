@@ -26,7 +26,7 @@ public class Crate extends GameEntity implements Actor {
 	 	partBuilder.setShape(polygon);
 	 	partBuilder.setFriction(0.5f);
 	 	partBuilder.build();
-	 	graphics = new ImageGraphics("box.4.png", width, height);
+	 	graphics = new ImageGraphics("stone.broken.4.png", width, height);
 	 	graphics.setParent(this);
 	 	game.addActor(this);
 	 
