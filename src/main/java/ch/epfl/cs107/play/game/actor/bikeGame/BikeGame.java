@@ -1,4 +1,4 @@
-package ch.epfl.cs107.play.game.actor.crate;
+package ch.epfl.cs107.play.game.actor.bikeGame;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.*;
@@ -13,17 +13,20 @@ import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.math.World;
 import ch.epfl.cs107.play.window.Window;
 
-public class CrateGame extends ActorGame{
+public class BikeGame extends ActorGame {
 	
+	private Terrain terrain;
 	private Crate crate1, crate2, crate3;
-	
+	private Bike bike;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		super.begin(window, fileSystem);
+		terrain = new Terrain(this);
 		crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 		crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
+		addActor(terrain);
 		addActor(crate1);
 		addActor(crate2);
 		addActor(crate3);

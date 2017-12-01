@@ -24,6 +24,7 @@ public class Crate extends GameEntity implements Actor {
                 new Vector(width, height),
                 new Vector(0.0f, height));
 	 	partBuilder.setShape(polygon);
+	 	partBuilder.setFriction(0.5f);
 	 	partBuilder.build();
 	 	graphics = new ImageGraphics("box.4.png", width, height);
 	 	graphics.setParent(this);
@@ -31,7 +32,7 @@ public class Crate extends GameEntity implements Actor {
 	 
 	}
 	 
-	public Crate(ActorGame game, boolean fixed, float friction, float height, float width) {
+	public Crate(ActorGame game, boolean fixed, float height, float width) {
 		super(game, fixed);
 		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon(
@@ -39,7 +40,7 @@ public class Crate extends GameEntity implements Actor {
                 new Vector(width, 0.0f), 
                 new Vector(width, height),
                 new Vector(0.0f, height));
-		partBuilder.setFriction(friction);
+		partBuilder.setFriction(0.5f);
 		partBuilder.setShape(polygon);
 		partBuilder.build();
 		graphics = new ImageGraphics("box.4.png", width, height);
