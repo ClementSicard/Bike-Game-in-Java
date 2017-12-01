@@ -28,7 +28,8 @@ public class Wheel extends GameEntity implements Actor {
 		partBuilder.setShape(circle);
 		partBuilder.setFriction(2.0f);
 		partBuilder.build();
-		graphics = new ImageGraphics("explosive.hollow.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
+		graphics = new ImageGraphics("explosive.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
+		graphics.setParent(this);
 	}
 	
 	public Wheel(ActorGame game, float ballRadius) {
@@ -38,7 +39,8 @@ public class Wheel extends GameEntity implements Actor {
 		partBuilder.setShape(circle);
 		partBuilder.setFriction(2.0f);
 		partBuilder.build();
-		graphics = new ImageGraphics("explosive.hollow.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
+		graphics = new ImageGraphics("explosive.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
+		graphics.setParent(this);
 	}
 
 	@Override
@@ -64,14 +66,12 @@ public class Wheel extends GameEntity implements Actor {
 		constraintBuilder = getOwner().createWheelConstraintBuilder();
 		constraintBuilder.setMotorEnabled(true);
 		constraintBuilder.setMotorSpeed(speed);
-		constraint = constraintBuilder.build();
 	}
 	
 	public void relax() {
 		constraintBuilder = getOwner().createWheelConstraintBuilder();
 		constraintBuilder.setMotorEnabled(false);
 		constraintBuilder.setMotorSpeed(0.0f);
-		constraint = constraintBuilder.build();
 	}
 	
 	public void detach() {

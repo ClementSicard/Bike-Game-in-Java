@@ -42,14 +42,11 @@ public class Terrain extends GameEntity implements Actor {
 		partBuilder.build();
 		graphics = new ShapeGraphics(polyline, Color.BLACK, Color.DARK_GRAY, 0.1f, 1.0f, 0.0f);
 		graphics.setParent(this);
-		game.addActor(this);
-
 	}
 
 
 	@Override
 	public void draw(Canvas canvas) {
-		// TODO Auto-generated method stub
 		graphics.draw(canvas);
 		
 	}
