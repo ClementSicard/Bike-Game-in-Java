@@ -45,6 +45,7 @@ public class BikeGame extends ActorGame {
 	        if (this.getKeyboard().get(KeyEvent.VK_LEFT).isDown()) 
             { 
 	        	bike.getRightWheel().power(5.0f);
+	        	
             } 
             else if (this.getKeyboard().get(KeyEvent.VK_RIGHT).isDown()) 
             { 

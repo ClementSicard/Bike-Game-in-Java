@@ -18,6 +18,7 @@ public class Wheel extends GameEntity implements Actor {
 	private PartBuilder partBuilder;
 	private ImageGraphics graphics;
 	private WheelConstraint constraint;
+	private WheelConstraintBuilder constraintBuilder;
 	
 	public Wheel(ActorGame game, float ballRadius, Vector position) {
 		
@@ -60,16 +61,27 @@ public class Wheel extends GameEntity implements Actor {
 	}
 	
 	public void power(float speed) {
-		WheelConstraintBuilder constraintBuilder
-		= getOwner().createWheelConstraintBuilder();
+		constraintBuilder = getOwner().createWheelConstraintBuilder();
 		constraintBuilder.setMotorEnabled(true);
 		constraintBuilder.setMotorSpeed(speed);
+		constraint = constraintBuilder.build();
 	}
 	
 	public void relax() {
-		WheelConstraintBuilder constraintBuilder 
-		= getOwner().createWheelConstraintBuilder();
+		constraintBuilder = getOwner().createWheelConstraintBuilder();
 		constraintBuilder.setMotorEnabled(false);
 		constraintBuilder.setMotorSpeed(0.0f);
+		constraint = constraintBuilder.build();
 	}
+	
+	public void detach() {
+		constraint.destroy();
+	}
+	
+	public float getSpeed() {
+		double difference = getEntity().getAngularVelocity() - getEntity().getVelocity().getLength();
+		return Math.abs((float) difference);
+	}
+	
+	
 }

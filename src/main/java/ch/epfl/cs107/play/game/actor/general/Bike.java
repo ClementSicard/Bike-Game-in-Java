@@ -29,9 +29,8 @@ public class Bike extends GameEntity implements Actor{
 		partBuilder.setShape(polygon);
 		partBuilder.setGhost(true);
 		partBuilder.build();
-		
-		leftWheel = new Wheel(getOwner(), 0.5f);
-		rightWheel = new Wheel(getOwner(), 0.5f);
+		leftWheel = new Wheel(getOwner(), 0.5f, position.add(-1.0f, 0.f));
+		rightWheel = new Wheel(getOwner(), 0.5f, position.add(1.0f, 0.f));
 		leftWheel.attach(getEntity(), new Vector(-1.0f, 0.0f), new Vector(-0.5f, -1.0f));
 		rightWheel.attach(getEntity(), new Vector(1.0f, 0.0f), new Vector(0.5f, -1.0f));
 		
