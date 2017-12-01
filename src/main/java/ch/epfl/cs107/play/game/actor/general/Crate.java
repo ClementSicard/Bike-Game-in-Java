@@ -48,27 +48,13 @@ public class Crate extends GameEntity implements Actor {
 		game.addActor(this);
 	}
 	
-public void setGraphicsParameters(ImageGraphics graphics, float alpha, float depth) {
-	graphics.setAlpha(alpha);
-	graphics.setDepth(depth);
-}
+	public void setGraphicsParameters(ImageGraphics graphics, float alpha, float depth) {
+		graphics.setAlpha(alpha);
+		graphics.setDepth(depth);
+	}
 
-@Override
-public Transform getTransform() { //Overriding the methods implemented from ActorGame abstract class such that they don't return 'null'
-
-	return getEntity().getTransform(); 
-}
-
-@Override
-public Vector getVelocity() { 
-	// TODO Auto-generated method stub
-	return getEntity().getVelocity();
-}
-
-@Override
-public void draw(Canvas canvas) {
-	// TODO grAuto-generated method stub
-	graphics.draw(canvas);
-}
+	public void draw(Canvas canvas) {
+		graphics.draw(canvas);
+	}
 	
 }

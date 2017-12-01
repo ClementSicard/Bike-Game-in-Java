@@ -1,6 +1,9 @@
 package ch.epfl.cs107.play.game.actor.bikeGame;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+
+import com.sun.glass.events.KeyEvent;
+
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.io.FileSystem;
@@ -26,17 +29,27 @@ public class BikeGame extends ActorGame {
 		crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 		crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
+		bike = new Bike(this, new Vector(4.0f, 5.0f));
 		addActor(terrain);
 		addActor(crate1);
 		addActor(crate2);
 		addActor(crate3);
-		this.setViewCandidate(null);
+		addActor(bike);
+		this.setViewCandidate(bike);
 		return true;
 	}
 	
 	 public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-cl
 	    	
+	        if (this.getKeyboard().get(KeyEvent.VK_LEFT).isDown()) 
+            { 
+            	ball.applyAngularForce(5.0f);
+            } 
+            else if (this.getKeyboard().get(KeyEvent.VK_RIGHT).isDown()) 
+            { 
+            	ball.applyAngularForce(-5.0f);
+            }
 	    }
 
 	    // This event is raised after game ends, to release additional resources

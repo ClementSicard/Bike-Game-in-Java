@@ -46,19 +46,6 @@ public class Terrain extends GameEntity implements Actor {
 
 	}
 
-	@Override
-	public Transform getTransform() {
-		// TODO Auto-generated method stub
-		return getEntity().getTransform();
-	}
-
-
-	@Override
-	public Vector getVelocity() {
-		// TODO Auto-generated method stub
-		return getEntity().getVelocity();
-	}
-
 
 	@Override
 	public void draw(Canvas canvas) {

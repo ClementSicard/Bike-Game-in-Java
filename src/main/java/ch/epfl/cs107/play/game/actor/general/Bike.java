@@ -27,23 +27,15 @@ public class Bike extends GameEntity implements Actor{
 				-0.5f, 1.0f);
 		partBuilder.setShape(polygon);
 		partBuilder.setFriction(0.5f);
+		
 		partBuilder.setGhost(true);
 		partBuilder.build();
+		Wheel wheel1 = new Wheel(getOwner(), 0.5f, new Vector(4.0f, 5.0f));
+		Wheel wheel2 = new Wheel(getOwner(), 0.5f, new Vector(4.0f, 5.0f));
+		
 		graphics.setParent(this);
 		game.addActor(this);
 		
-	}
-
-	@Override
-	public Transform getTransform() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Vector getVelocity() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
