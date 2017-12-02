@@ -1,17 +1,9 @@
 package ch.epfl.cs107.play.game.actor.general;
 
-import ch.epfl.cs107.play.game.actor.ImageGraphics;
-import ch.epfl.cs107.play.game.actor.bikeGame.BikeGame;
-
 import java.awt.Color;
-
 import ch.epfl.cs107.play.game.actor.*;
-import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.math.PartBuilder;
-import ch.epfl.cs107.play.math.Polygon;
 import ch.epfl.cs107.play.math.Polyline;
-import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Terrain extends GameEntity implements Actor {
@@ -40,8 +32,10 @@ public class Terrain extends GameEntity implements Actor {
 		partBuilder.setFriction(5.0f);
 		partBuilder.setShape(polyline);
 		partBuilder.build();
-		graphics = new ShapeGraphics(polyline, Color.BLACK, Color.DARK_GRAY, 0.1f, 1.0f, 0.0f);
+		graphics = new ShapeGraphics(polyline, Color.PINK, Color.DARK_GRAY, 0.1f, 1.0f, 0.0f);
 		graphics.setParent(this);
+		
+		getOwner().addActor(this);
 	}
 
 

@@ -2,10 +2,8 @@ package ch.epfl.cs107.play.game.actor.general;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.*;
-import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
-import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
@@ -28,7 +26,8 @@ public class Crate extends GameEntity implements Actor {
 	 	partBuilder.build();
 	 	graphics = new ImageGraphics("stone.broken.4.png", width, height);
 	 	graphics.setParent(this);
-	 	game.addActor(this);
+	 	getOwner().addActor(this);
+	 	
 	 
 	}
 	 
@@ -45,7 +44,7 @@ public class Crate extends GameEntity implements Actor {
 		partBuilder.build();
 		graphics = new ImageGraphics("box.4.png", width, height);
 		graphics.setParent(this);
-		game.addActor(this);
+		getOwner().addActor(this);
 	}
 	
 	public void setGraphicsParameters(ImageGraphics graphics, float alpha, float depth) {

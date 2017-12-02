@@ -25,6 +25,7 @@ public abstract class ActorGame implements Game{
 	//External data required to initialize it as a Game
 	private Window window;
 	private FileSystem fileSystem;
+	private boolean sight = true;
 	
 	//Viewport properties
 	private Vector viewCenter;
@@ -42,6 +43,7 @@ public abstract class ActorGame implements Game{
 	public Canvas getCanvas() {
 		return window;
 	}
+	
 	
 	public boolean begin(Window window, FileSystem fileSystem) {
 		this.window = window;
@@ -112,5 +114,9 @@ public abstract class ActorGame implements Game{
 				listActors.remove(a);
 			}
 		}
+	}
+	
+	public boolean getSight() {
+		return sight;
 	}
 }

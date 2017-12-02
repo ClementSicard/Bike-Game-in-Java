@@ -28,6 +28,7 @@ public class Wheel extends GameEntity implements Actor {
 		partBuilder.setShape(circle);
 		partBuilder.setFriction(5.0f);
 		partBuilder.build();
+		
 		graphics = new ImageGraphics("wheel.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
 		graphics.setParent(this);
 	}
