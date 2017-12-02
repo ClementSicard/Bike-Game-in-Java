@@ -28,7 +28,7 @@ public class BikeGame extends ActorGame {
 	
 	
 	 public void update(float deltaTime) {
-	        super.update(deltaTime); //Calling the update() method from the super-cl
+	        super.update(deltaTime); //Calling the update() method from the super-class
     	
 	        if (this.getKeyboard().get(KeyEvent.VK_LEFT).isDown()) 
             { 
