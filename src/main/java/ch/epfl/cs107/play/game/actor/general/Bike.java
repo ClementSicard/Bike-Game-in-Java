@@ -11,7 +11,7 @@ public class Bike extends GameEntity implements Actor{
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-//	private ShapeGraphics graphics;
+//	private ImageGraphics graphics;
 	public final static float MAX_WHEEL_SPEED = 20.0f;
 	
 	public Bike(ActorGame game, Vector position) {
@@ -27,7 +27,7 @@ public class Bike extends GameEntity implements Actor{
 		partBuilder.setGhost(true);
 		partBuilder.build();
 		
-//		graphics = new ShapeGraphics(polygon, Color.RED, Color.RED, 0.0f);
+//		graphics = new ImageGraphics("billy.png", 6.0f, 4.0f);
 //		graphics.setParent(this);
 		
 		leftWheel = new Wheel(getOwner(), 0.5f, position.add(-1.0f, 0.f));
