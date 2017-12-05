@@ -18,6 +18,8 @@ public class Wheel extends GameEntity implements Actor {
 	private WheelConstraintBuilder builder;
 	private WheelConstraintBuilder[] builderArray = new WheelConstraintBuilder[2];
 	private WheelConstraint[] attachArray = new WheelConstraint[1];
+	public final static float MAX_WHEEL_SPEED = 20.0f;
+
 	
 	
 	public Wheel(ActorGame game, float ballRadius, Vector position) {
@@ -71,6 +73,10 @@ public class Wheel extends GameEntity implements Actor {
 		builder.setMotorEnabled(true);
 		builder.setMotorSpeed(speed);
 		constraint = builder.build();
+		
+		if (this.getSpeed() >= MAX_WHEEL_SPEED) {
+			
+		}
 	}
 	
 	public void relax() {
@@ -87,5 +93,10 @@ public class Wheel extends GameEntity implements Actor {
 		return Math.abs((float) difference);
 	}
 	
+	public void setMotorState(boolean state) {
+		builder = builderArray[0];
+		builder.setMotorEnabled(state);
+		constraint = builder.build();
+	}
 	
 }

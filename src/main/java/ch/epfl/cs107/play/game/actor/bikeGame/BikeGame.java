@@ -33,27 +33,9 @@ public class BikeGame extends ActorGame {
 	public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-class
     	
+	        bike.update();
 	        
-	        if (this.getKeyboard().get(KeyEvent.VK_LEFT).isDown()) 
-            {
-	        	
-	        } 
-            else if (this.getKeyboard().get(KeyEvent.VK_RIGHT).isDown()) 
-            {
-            	
-            }
-            else if (this.getKeyboard().get(KeyEvent.VK_SPACE).isDown())
-            {
-            	sight = !sight;
-            }
-            else if (this.getKeyboard().get(KeyEvent.VK_UP).isDown())
-            {
-            	
-            }
-            else if (this.getKeyboard().get(KeyEvent.VK_DOWN).isDown())
-            {
-            	
-            }
+	     
 	    }
 
 	    // This event is raised after game ends, to release additional resources

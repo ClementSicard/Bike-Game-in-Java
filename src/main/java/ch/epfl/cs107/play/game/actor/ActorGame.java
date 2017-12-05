@@ -119,4 +119,9 @@ public abstract class ActorGame implements Game{
 	public boolean getSight() {
 		return sight;
 	}
+
+	public Window getWindow() {
+		// TODO Auto-generated method stub
+		return window;
+	}
 }

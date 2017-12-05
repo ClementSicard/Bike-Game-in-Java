@@ -2,6 +2,8 @@ package ch.epfl.cs107.play.game.actor.general;
 
 import java.awt.Color;
 
+import com.sun.glass.events.KeyEvent;
+
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.PartBuilder;
@@ -15,10 +17,10 @@ public class Bike extends GameEntity implements Actor{
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-	private ShapeGraphics armGraphics, headGraphics, rearGraphics;
-	//private ImageGraphics billyGraphics;
-	public final static float MAX_WHEEL_SPEED = 20.0f;
-	private boolean sight;
+	private ShapeGraphics armGraphics, headGraphics, rearGraphics, kneeGraphics, leftLegGraphics, rightLegGraphics;
+	private ImageGraphics billyGraphics;
+	private boolean sight = true;
+
 	
 	public Bike(ActorGame game, Vector position) {
 		
@@ -42,12 +44,17 @@ public class Bike extends GameEntity implements Actor{
 		rightWheel.attach(getEntity(), new Vector(1.0f, 0.0f), new Vector(0.5f, -1.0f));
 		getOwner().addActor(leftWheel);
 		getOwner().addActor(rightWheel);
-		
+		getOwner().addActor(this);
+	}
+
+	@Override
+	public void draw(Canvas canvas) {
 		Circle head = new Circle(0.2f, getHeadLocation());
 		headGraphics = new ShapeGraphics(head, Color.YELLOW, Color.ORANGE, 0.02f);
 		headGraphics.setParent(this);
-//		billyGraphics = new ImageGraphics("billy.png", 0.0f, 4.0f);
-//		billyGraphics.setParent(this);
+		
+		billyGraphics = new ImageGraphics("billy.png", 0.0f, 4.0f);
+		billyGraphics.setParent(this);
 	
 		Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
 		armGraphics = new ShapeGraphics(arm, Color.ORANGE, Color.YELLOW, 0.1f);
@@ -56,18 +63,21 @@ public class Bike extends GameEntity implements Actor{
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
 		rearGraphics = new ShapeGraphics(rear, Color.ORANGE, Color.YELLOW, 0.1f);
 		rearGraphics.setParent(this);
-		getOwner().addActor(this);
-	}
-
-	@Override
-	public void draw(Canvas canvas) {
+		
+		Polyline leftLeg = new Polyline(getRearLocation(), getLeftFoot());
+		leftLegGraphics = new ShapeGraphics(leftLeg, Color.ORANGE, Color.YELLOW, 0.1f);
+		leftLegGraphics.setParent(this);
+		
+		Polyline rightLeg = new Polyline(getRearLocation(), getRightfoot());
+		rightLegGraphics = new ShapeGraphics(rightLeg, Color.ORANGE, Color.YELLOW, 0.1f);
 		
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
-		armGraphics.draw(canvas);
+		billyGraphics.draw(canvas);
 		headGraphics.draw(canvas);
+		armGraphics.draw(canvas);
 		rearGraphics.draw(canvas);
-//		billyGraphics.draw(canvas);
+		leftLegGraphics.draw(canvas);
 	}
 	
 	public Wheel getLeftWheel() {
@@ -83,9 +93,8 @@ public class Bike extends GameEntity implements Actor{
 		return new Vector(0.0f, 1.75f);
 	}
 	
-	private Vector getHandLocation() {
-	//TODO : ADD CONDITIONNALS 
-		if (getOwner().getSight())
+	private Vector getHandLocation() {	
+		if (sight)
 		{
 			return new Vector(0.5f, 1.0f);
 		}
@@ -96,7 +105,7 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getShoulderLocation() {
-		if (getOwner().getSight())
+		if (sight)
 		{
 			return new Vector(-0.1f, 1.4f);
 		}
@@ -107,6 +116,61 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getRearLocation() {
-		return new Vector(-0.5f, 0.8f);
+		if (sight) 
+		{
+			return new Vector(-0.5f, 0.8f);
+		}
+		else
+		{
+			return new Vector(0.5f, 0.8f);
+		}
+	}
+	
+	private Vector getKneeLocation() {
+		
+		return new Vector(0.f, 0.5f);
+	}
+	
+	private Vector getLeftFoot() {
+		if (sight)
+		{
+			return new Vector(-0.1f, 0.1f);
+		}
+		else
+		{
+			return new Vector(0.1f, 0.1f);
+		}
+	}
+	
+	private Vector getRightfoot() {
+		if (sight)
+		{
+			return new Vector(0.1f, 0.1f);
+		}
+		else
+		{
+			return new Vector(-0.1f, 0.1f);
+		}
+	}
+	
+	public void stopWheels() {
+		leftWheel.setMotorState(false);
+		rightWheel.setMotorState(false);
+	}
+	
+	public void startWheels() {
+		leftWheel.setMotorState(true);
+		rightWheel.setMotorState(true);
+	}
+	
+	public float getSpeedConstant() {
+		return leftWheel.MAX_WHEEL_SPEED;
+	}
+	
+	public void update() {
+		
+		if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SPACE).isDown())) {
+			sight = !sight;
+		}
 	}
 }

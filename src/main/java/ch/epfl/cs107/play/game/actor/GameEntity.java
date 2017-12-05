@@ -6,6 +6,7 @@ import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.math.WheelConstraintBuilder;
 import ch.epfl.cs107.play.window.Canvas;
+import ch.epfl.cs107.play.window.Window;
 
 public abstract class GameEntity {
 	
@@ -46,6 +47,10 @@ public abstract class GameEntity {
 
 	public Vector getVelocity() { 
 		return getEntity().getVelocity();
+	}
+	
+	public Window getWindow() {
+		return game.getWindow();
 	}
 
 }
