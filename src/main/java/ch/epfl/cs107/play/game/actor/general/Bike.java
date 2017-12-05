@@ -18,9 +18,10 @@ public class Bike extends GameEntity implements Actor{
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-	private ShapeGraphics armGraphics, headGraphics, rearGraphics, kneeGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics;
-	private ImageGraphics billyGraphics;
+	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics;
+//	private ImageGraphics billyGraphics;
 	private boolean sight = true;
+	private 
 
 	
 	public Bike(ActorGame game, Vector position) {
@@ -39,8 +40,8 @@ public class Bike extends GameEntity implements Actor{
 //		graphics = new ImageGraphics("billy.png", 6.0f, 4.0f);
 //		graphics.setParent(this);
 		
-		leftWheel = new Wheel(getOwner(), 0.5f, position.add(-1.0f, 0.f));
-		rightWheel = new Wheel(getOwner(), 0.5f, position.add(1.0f, 0.f));
+		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f);
+		rightWheel = new Wheel(getOwner(), false, position.add(1.0f, 0.f), 0.5f);
 		leftWheel.attach(getEntity(), new Vector(-1.0f, 0.0f), new Vector(-0.5f, -1.0f));
 		rightWheel.attach(getEntity(), new Vector(1.0f, 0.0f), new Vector(0.5f, -1.0f));
 		getOwner().addActor(leftWheel);
@@ -51,35 +52,35 @@ public class Bike extends GameEntity implements Actor{
 	@Override
 	public void draw(Canvas canvas) {
 		Circle head = new Circle(0.2f, getHeadLocation());
-		headGraphics = new ShapeGraphics(head, Color.YELLOW, Color.ORANGE, 0.02f);
+		headGraphics = new ShapeGraphics(head, Color.GRAY, Color.GRAY, 0.02f);
 		headGraphics.setParent(this);
 		
-		billyGraphics = new ImageGraphics("billy.png", 0.0f, 4.0f);
-		billyGraphics.setParent(this);
-	
+//		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
+//		billyGraphics.setParent(this);
+//	
 		Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
-		armGraphics = new ShapeGraphics(arm, Color.ORANGE, Color.YELLOW, 0.1f);
+		armGraphics = new ShapeGraphics(arm, Color.GRAY, Color.GRAY, 0.1f);
 		armGraphics.setParent(this);
 		
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
-		rearGraphics = new ShapeGraphics(rear, Color.ORANGE, Color.YELLOW, 0.1f);
+		rearGraphics = new ShapeGraphics(rear, Color.GRAY, Color.GRAY, 0.1f);
 		rearGraphics.setParent(this);
 		
 		Polyline couisse = new Polyline(getRearLocation(), getKneeLocation());
-		couisseGraphics = new ShapeGraphics(couisse, Color.ORANGE, Color.YELLOW, 0.1f);
+		couisseGraphics = new ShapeGraphics(couisse, Color.GRAY, Color.GRAY, 0.1f);
 		couisseGraphics.setParent(this);
 		
 		Polyline leftLeg = new Polyline(getKneeLocation(), getLeftFoot());
-		leftLegGraphics = new ShapeGraphics(leftLeg, Color.ORANGE, Color.YELLOW, 0.1f);
+		leftLegGraphics = new ShapeGraphics(leftLeg, Color.GRAY, Color.GRAY, 0.1f);
 		leftLegGraphics.setParent(this);
 		
 		Polyline rightLeg = new Polyline(getKneeLocation(), getRightfoot());
-		rightLegGraphics = new ShapeGraphics(rightLeg, Color.ORANGE, Color.YELLOW, 0.1f);
+		rightLegGraphics = new ShapeGraphics(rightLeg, Color.GRAY, Color.GRAY, 0.1f);
 		rightLegGraphics.setParent(this);
 		
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
-		billyGraphics.draw(canvas);
+//		billyGraphics.draw(canvas);
 		headGraphics.draw(canvas);
 		armGraphics.draw(canvas);
 		rearGraphics.draw(canvas);
@@ -140,7 +141,7 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getLeftFoot() {
-		if (getOwner().getSight())
+		if (sight)
 		{
 			return new Vector(-0.1f, 0.1f);
 		}
@@ -151,7 +152,7 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getRightfoot() {
-		if (getOwner().getSight())
+		if (sight)
 		{
 			return new Vector(0.1f, 0.1f);
 		}
@@ -160,28 +161,27 @@ public class Bike extends GameEntity implements Actor{
 			return new Vector(-0.1f, 0.1f);
 		}
 	}
-	
-	public void stopWheels() {
-		leftWheel.setMotorState(false);
-		rightWheel.setMotorState(false);
-	}
-	
-	public void startWheels() {
-		leftWheel.setMotorState(true);
-		rightWheel.setMotorState(true);
-	}
-	
-	public float getSpeedConstant() {
-		return leftWheel.MAX_WHEEL_SPEED;
-	}
-	
-	public void update() {
 		
-		
-	}
-	
 	public Entity getBike() {
-		
 		return this.getEntity();
+	}
+
+	public boolean getSight() {
+		return sight;
+	}
+
+	public void goRight() {
+		if (leftWheel.getSpeed() < MAX)
+		getLeftWheel().power(-20.0f);
+		getRightWheel().relax();
+	}
+
+	public void goLeft() {
+		getRightWheel().power(20.0f);
+		getLeftWheel().relax();
+	}
+
+	public void changeSight() {
+		sight = !sight;
 	}
 }

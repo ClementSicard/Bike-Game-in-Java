@@ -1,7 +1,9 @@
 package ch.epfl.cs107.play.game.actor.general;
 
+import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.actor.ActorGame;
+import ch.epfl.cs107.play.game.actor.GameEntity;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
-import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.PartBuilder;
@@ -11,92 +13,65 @@ import ch.epfl.cs107.play.math.WheelConstraintBuilder;
 import ch.epfl.cs107.play.window.Canvas;
 
 public class Wheel extends GameEntity implements Actor {
-	
+
 	private PartBuilder partBuilder;
-	private ImageGraphics graphics;
+	private ImageGraphics wheelGraphics;
 	private WheelConstraint constraint;
-	private WheelConstraintBuilder builder;
-	private WheelConstraintBuilder[] builderArray = new WheelConstraintBuilder[2];
-	private WheelConstraint[] attachArray = new WheelConstraint[1];
-	public final static float MAX_WHEEL_SPEED = 20.0f;
+	private WheelConstraintBuilder constraintBuilder;
 
-	
-	
-	public Wheel(ActorGame game, float ballRadius, Vector position) {
-		
-		super(game, false, position);
+	public Wheel(ActorGame game, boolean fixed, Vector position, float radius) {
+		super(game, fixed, position);
 		partBuilder = getEntity().createPartBuilder();
-		Circle circle = new Circle(ballRadius);
+		
+		Circle circle = new Circle(radius);
 		partBuilder.setShape(circle);
-		partBuilder.setFriction(5.0f);
+		partBuilder.setFriction(0.5f);
 		partBuilder.build();
 		
-		graphics = new ImageGraphics("wheel.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
-		graphics.setParent(this);
-	}
-	
-	public Wheel(ActorGame game, float ballRadius) {
-		super(game, false);
-		partBuilder = getEntity().createPartBuilder();
-		Circle circle = new Circle(ballRadius);
-		partBuilder.setShape(circle);
-		partBuilder.setFriction(3.0f);
-		partBuilder.build();
-		graphics = new ImageGraphics("explosive.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
-		graphics.setParent(this);
+		wheelGraphics = new ImageGraphics("wheel.png", 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
+		wheelGraphics.setAlpha(1.0f);
+		wheelGraphics.setDepth(0.0f);
+		wheelGraphics.setParent(this);
+		
 	}
 
-	@Override
-	public void draw(Canvas canvas) {
-		graphics.draw(canvas);		
-	}
-	
-	
 	public void attach(Entity vehicle, Vector anchor, Vector axis) {
-		builder = getOwner().createWheelConstraintBuilder();
-		builder.setMotorEnabled(false);
-		builder.setFirstEntity(vehicle);
-		builder.setFirstAnchor(anchor);
-		builder.setSecondEntity(getEntity());
-		builder.setSecondAnchor(Vector.ZERO);
-		builder.setAxis(axis);
-		builder.setFrequency(3.0f);
-		builder.setDamping(0.5f);
-		builder.setMotorMaxTorque(10.0f);
-		builderArray[0] = builder;
-		constraint = builder.build();
-		attachArray[0] = constraint;
+		constraintBuilder = getOwner().createWheelConstraintBuilder(); 
+		constraintBuilder.setFirstEntity(vehicle);
+		constraintBuilder.setFirstAnchor(anchor);
+		constraintBuilder.setSecondEntity(getEntity());
+		constraintBuilder.setSecondAnchor(Vector.ZERO);
+		constraintBuilder.setAxis(axis);
+		constraintBuilder.setFrequency(3.0f); 
+		constraintBuilder.setDamping(0.5f);
+		constraintBuilder.setMotorMaxTorque(10.0f); 
+		constraint = constraintBuilder.build();
 	}
 	
 	public void power(float speed) {
-		builder = builderArray[0];
-		builder.setMotorEnabled(true);
-		builder.setMotorSpeed(speed);
-		constraint = builder.build();
-		
-		if (this.getSpeed() >= MAX_WHEEL_SPEED) {
-			
-		}
+		constraint.setMotorEnabled(true);
+		constraint.setMotorSpeed(speed);
+
 	}
 	
 	public void relax() {
-		builder = builderArray[0];
-		builder.setMotorEnabled(false);
+		constraint.setMotorEnabled(false);
 	}
 	
+	
 	public void detach() {
-		attachArray[0].destroy();
+		constraint.destroy();
 	}
 	
 	public float getSpeed() {
-		double difference = getEntity().getAngularVelocity() - getEntity().getVelocity().getLength();
-		return Math.abs((float) difference);
+		float difference = getEntity().getAngularVelocity() - getEntity().getVelocity().getLength();
+		return difference;
 	}
 	
-	public void setMotorState(boolean state) {
-		builder = builderArray[0];
-		builder.setMotorEnabled(state);
-		constraint = builder.build();
-	}
+	@Override
+	public void draw(Canvas canvas) {
 	
+		wheelGraphics.draw(canvas);
+	}
+
 }
