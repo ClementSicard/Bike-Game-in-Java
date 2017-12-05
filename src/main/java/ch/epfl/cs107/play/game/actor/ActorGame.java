@@ -13,6 +13,8 @@ import ch.epfl.cs107.play.math.World;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
+import ch.epfl.cs107.play.game.actor.*;
+import ch.epfl.cs107.play.game.actor.general.Finish;
 
 public abstract class ActorGame implements Game{
 	
@@ -26,6 +28,7 @@ public abstract class ActorGame implements Game{
 	private Window window;
 	private FileSystem fileSystem;
 	private boolean sight = true;
+	private Finish finish;
 	
 	//Viewport properties
 	private Vector viewCenter;
@@ -123,5 +126,9 @@ public abstract class ActorGame implements Game{
 	public Window getWindow() {
 		// TODO Auto-generated method stub
 		return window;
+	}
+	
+	public Finish getFinish() {
+		return finish;
 	}
 }

@@ -20,15 +20,10 @@ import ch.epfl.cs107.play.window.Window;
 public class ContactGame implements Game {
 	
         private Window window;
-        
         private World world;
-        
         private Entity block, ball;
-        
         private ImageGraphics blockGraphics;
-        
         private ShapeGraphics ballGraphics;
-        
         private BasicContactListener contactListener;
         
         @Override

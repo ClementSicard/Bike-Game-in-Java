@@ -1,11 +1,10 @@
 package ch.epfl.cs107.play.game.actor.general;
 
 import java.awt.Color;
-
-import com.sun.glass.events.KeyEvent;
-
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.math.Circle;
+import ch.epfl.cs107.play.math.Contact;
+import ch.epfl.cs107.play.math.ContactListener;
 import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
@@ -13,18 +12,19 @@ import ch.epfl.cs107.play.math.Polyline;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
-
-public class Bike extends GameEntity implements Actor{
+public class Bike extends GameEntity implements Actor {
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
 	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics;
 //	private ImageGraphics billyGraphics;
 	private boolean sight = true;
-	private 
-
+	private final static float MAX_WHEEL_SPEED = 30.0f;
+	private boolean hit;
+	private ContactListener bikeListener;
+	private Contact contact;
 	
-	public Bike(ActorGame game, Vector position) {
+	public Bike(ActorGame game, Vector position) { //We consider that the bike is necessarily mobile
 		
 		super(game, false, position);
 		partBuilder = getEntity().createPartBuilder();
@@ -47,6 +47,8 @@ public class Bike extends GameEntity implements Actor{
 		getOwner().addActor(leftWheel);
 		getOwner().addActor(rightWheel);
 		getOwner().addActor(this);
+//		this.addContactListener(listener);
+		this.getEntity().addContactListener(listener);
 	}
 
 	@Override
@@ -88,6 +90,15 @@ public class Bike extends GameEntity implements Actor{
 		rightLegGraphics.draw(canvas);
 		couisseGraphics.draw(canvas);
 	}
+	
+//	public void addContactListner() {
+//		listener.beginContact(contact);
+//	}
+	
+	public void destroy() {
+		this.destroy();
+	}
+	
 	
 	public Wheel getLeftWheel() {
 		return leftWheel;
@@ -171,17 +182,63 @@ public class Bike extends GameEntity implements Actor{
 	}
 
 	public void goRight() {
-		if (leftWheel.getSpeed() < MAX)
-		getLeftWheel().power(-20.0f);
-		getRightWheel().relax();
+		if (leftWheel.getSpeed() > -MAX_WHEEL_SPEED)
+		{
+			getLeftWheel().power(-20.0f);
+			getRightWheel().relax();
+		}
 	}
 
 	public void goLeft() {
-		getRightWheel().power(20.0f);
-		getLeftWheel().relax();
+		if (rightWheel.getSpeed() < MAX_WHEEL_SPEED)
+		{
+			getRightWheel().power(20.0f);
+			getLeftWheel().relax();
+		}	
+	}
+	
+	public boolean getHit() {
+		return hit;
 	}
 
 	public void changeSight() {
 		sight = !sight;
 	}
+	
+	public ContactListener getListener() {
+		return bikeListener;
+	}
+
+	ContactListener listener = new ContactListener () {
+
+		
+		@Override
+		public void beginContact(Contact contact) {
+			if (contact.getOther().isGhost())
+			{
+				return;
+			}
+			//If in contact with the wheels
+			if (contact.getOther().getClass().equals(leftWheel.getClass()))
+			{
+				return;
+			}
+			if (contact.getOther().getClass().equals(getOwner().getFinish().getClass()))
+			{
+				
+			}
+			
+			hit = true ;
+		}
+		
+			
+		@Override
+		public void endContact(Contact contact) {
+			if (hit)
+			{
+				getEntity().destroy();
+			}
+		}
+	};
 }
+

@@ -31,10 +31,10 @@ public class Wheel extends GameEntity implements Actor {
 		wheelGraphics = new ImageGraphics("wheel.png", 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
 		wheelGraphics.setAlpha(1.0f);
 		wheelGraphics.setDepth(0.0f);
-		wheelGraphics.setParent(this);
-		
+		wheelGraphics.setParent(this);	
 	}
 
+	
 	public void attach(Entity vehicle, Vector anchor, Vector axis) {
 		constraintBuilder = getOwner().createWheelConstraintBuilder(); 
 		constraintBuilder.setFirstEntity(vehicle);
@@ -73,5 +73,4 @@ public class Wheel extends GameEntity implements Actor {
 	
 		wheelGraphics.draw(canvas);
 	}
-
 }
