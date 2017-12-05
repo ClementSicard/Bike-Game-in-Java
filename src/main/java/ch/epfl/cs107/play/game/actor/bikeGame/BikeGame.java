@@ -33,7 +33,9 @@ public class BikeGame extends ActorGame {
 	public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-class
     	
-	        bike.update();
+	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
+				sight = !sight;
+			}
 	        
 	     
 	    }

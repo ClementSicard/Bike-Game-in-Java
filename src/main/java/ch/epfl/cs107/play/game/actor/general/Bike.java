@@ -6,6 +6,7 @@ import com.sun.glass.events.KeyEvent;
 
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.math.Circle;
+import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
 import ch.epfl.cs107.play.math.Polyline;
@@ -17,7 +18,7 @@ public class Bike extends GameEntity implements Actor{
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-	private ShapeGraphics armGraphics, headGraphics, rearGraphics, kneeGraphics, leftLegGraphics, rightLegGraphics;
+	private ShapeGraphics armGraphics, headGraphics, rearGraphics, kneeGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics;
 	private ImageGraphics billyGraphics;
 	private boolean sight = true;
 
@@ -64,12 +65,17 @@ public class Bike extends GameEntity implements Actor{
 		rearGraphics = new ShapeGraphics(rear, Color.ORANGE, Color.YELLOW, 0.1f);
 		rearGraphics.setParent(this);
 		
-		Polyline leftLeg = new Polyline(getRearLocation(), getLeftFoot());
+		Polyline couisse = new Polyline(getRearLocation(), getKneeLocation());
+		couisseGraphics = new ShapeGraphics(couisse, Color.ORANGE, Color.YELLOW, 0.1f);
+		couisseGraphics.setParent(this);
+		
+		Polyline leftLeg = new Polyline(getKneeLocation(), getLeftFoot());
 		leftLegGraphics = new ShapeGraphics(leftLeg, Color.ORANGE, Color.YELLOW, 0.1f);
 		leftLegGraphics.setParent(this);
 		
-		Polyline rightLeg = new Polyline(getRearLocation(), getRightfoot());
+		Polyline rightLeg = new Polyline(getKneeLocation(), getRightfoot());
 		rightLegGraphics = new ShapeGraphics(rightLeg, Color.ORANGE, Color.YELLOW, 0.1f);
+		rightLegGraphics.setParent(this);
 		
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
@@ -78,6 +84,8 @@ public class Bike extends GameEntity implements Actor{
 		armGraphics.draw(canvas);
 		rearGraphics.draw(canvas);
 		leftLegGraphics.draw(canvas);
+		rightLegGraphics.draw(canvas);
+		couisseGraphics.draw(canvas);
 	}
 	
 	public Wheel getLeftWheel() {
@@ -132,7 +140,7 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getLeftFoot() {
-		if (sight)
+		if (getOwner().getSight())
 		{
 			return new Vector(-0.1f, 0.1f);
 		}
@@ -143,7 +151,7 @@ public class Bike extends GameEntity implements Actor{
 	}
 	
 	private Vector getRightfoot() {
-		if (sight)
+		if (getOwner().getSight())
 		{
 			return new Vector(0.1f, 0.1f);
 		}
@@ -169,8 +177,11 @@ public class Bike extends GameEntity implements Actor{
 	
 	public void update() {
 		
-		if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SPACE).isDown())) {
-			sight = !sight;
-		}
+		
+	}
+	
+	public Entity getBike() {
+		
+		return this.getEntity();
 	}
 }
