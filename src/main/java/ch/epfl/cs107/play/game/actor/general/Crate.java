@@ -55,4 +55,9 @@ public class Crate extends GameEntity implements Actor {
 	public void draw(Canvas canvas) {
 		graphics.draw(canvas);
 	}
+	
+	public void destroy() {
+		getEntity().destroy();
+		getOwner().removeActor(this);
+	}
 }

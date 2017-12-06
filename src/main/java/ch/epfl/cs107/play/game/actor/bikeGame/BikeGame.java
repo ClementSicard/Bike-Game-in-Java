@@ -20,6 +20,7 @@ public class BikeGame extends ActorGame {
 	private boolean sight = true;
     private boolean stayOnScreen, stayOnScreen1;
     private boolean endOfGame;
+    private boolean destroyHelper = false;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -27,7 +28,7 @@ public class BikeGame extends ActorGame {
 		//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 		//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 //		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-		terrain = new Terrain(this, Color.WHITE, Color.BLACK);
+		terrain = new Terrain(this, Color.CYAN, Color.WHITE);
 		flag = new Finish(this, new Vector(40.0f, -5.0f));
 		Vector position = new Vector(5.0f, 6.0f);
 		bike = new Bike(this, position);
@@ -45,6 +46,7 @@ public class BikeGame extends ActorGame {
 	        
 	        if (bike.getHit() && endOfGame != true) 
 	        {
+	        	bike.destroy();
 	        	stayOnScreen = true;
 		        endOfGame = true;
 	        }

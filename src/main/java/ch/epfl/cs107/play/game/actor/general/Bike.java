@@ -103,6 +103,9 @@ public class Bike extends GameEntity implements Actor {
 	
 	public void destroy() {
 		getEntity().destroy();
+		leftWheel.destroy();
+		rightWheel.destroy();
+		getOwner().removeActor(this);
 	}
 	
 	
@@ -244,10 +247,10 @@ public class Bike extends GameEntity implements Actor {
 			
 		@Override
 		public void endContact(Contact contact) {
-			if (hit)
-			{
-				getEntity().destroy();
-			}
+//			if (hit)
+//			{
+//				getEntity().destroy();
+//			}
 		}
 	};
 }

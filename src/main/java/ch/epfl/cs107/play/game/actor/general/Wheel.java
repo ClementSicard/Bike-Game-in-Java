@@ -73,4 +73,9 @@ public class Wheel extends GameEntity implements Actor {
 	
 		wheelGraphics.draw(canvas);
 	}
+	
+	public void destroy() {
+		getEntity().destroy();
+		getOwner().removeActor(this);
+	}
 }

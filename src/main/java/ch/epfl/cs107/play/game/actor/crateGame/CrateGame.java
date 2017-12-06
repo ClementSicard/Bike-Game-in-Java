@@ -1,6 +1,9 @@
 package ch.epfl.cs107.play.game.actor.crateGame;
 
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
+
+import com.sun.glass.events.KeyEvent;
+
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.io.FileSystem;
@@ -33,7 +36,12 @@ public class CrateGame extends ActorGame {
 	
 	 public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-cl
-	    	
+	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_D).isPressed()))
+	        {
+	        	crate1.destroy();
+	        	crate2.destroy();
+	        	crate3.destroy();
+	        }
 	    }
 
 	    // This event is raised after game ends, to release additional resources

@@ -112,9 +112,14 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void removeActor(Actor actor) {
-		for (Actor a : listActors) 
+		for (int a = listActors.size() - 1; a >= 0; a--) 
+			
+			/*The array is explored from end to beginning
+			 *in* order to avoid a ConcurrentModificationException
+			 *when actors are removed from the game
+			 */
 		{
-			if (a == actor)
+			if (listActors.get(a) == actor)
 			{
 				listActors.remove(a);
 			}
@@ -143,7 +148,7 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayGameOver() {
-		message = new TextGraphics("GAME OVER", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("GAME OVER", 0.3f, Color.CYAN, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
     	message.draw(getCanvas());
@@ -151,7 +156,7 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayEndOfTheGame() {
-		message = new TextGraphics("WELL DONE!", 0.3f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("WELL DONE!", 0.3f, Color.CYAN, Color.WHITE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
     	message.draw(getCanvas());
