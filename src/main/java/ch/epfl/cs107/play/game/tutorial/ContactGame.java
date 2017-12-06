@@ -25,6 +25,7 @@ public class ContactGame implements Game {
         private ImageGraphics blockGraphics;
         private ShapeGraphics ballGraphics;
         private BasicContactListener contactListener;
+
         
         @Override
         public boolean begin(Window window, FileSystem fileSystem) {

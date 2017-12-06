@@ -30,7 +30,7 @@ public abstract class GameEntity {
 	}
 	
 	public void destroy() {
-		entity.destroy();
+		getEntity().destroy();
 	}
 	
 	protected Entity getEntity() {

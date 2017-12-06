@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.actor;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import ch.epfl.cs107.play.game.Game;
@@ -37,6 +38,7 @@ public abstract class ActorGame implements Game{
 	private static final float VIEW_TARGET_VELOCITY_COMPENSATION = 0.2f;
 	private static final float VIEW_INTERPOLATION_RATIO_PER_SECOND = 0.1f;
 	private static final float VIEW_SCALE = 10.0f;
+	private TextGraphics message, reset;
 	
 	
 	public Keyboard getKeyboard() {
@@ -119,6 +121,10 @@ public abstract class ActorGame implements Game{
 		}
 	}
 	
+	public void removeAllActors() {
+		listActors.removeAll(listActors);
+	}
+	
 	public boolean getSight() {
 		return sight;
 	}
@@ -130,5 +136,37 @@ public abstract class ActorGame implements Game{
 	
 	public Finish getFinish() {
 		return finish;
+	}
+	
+	public int getListActorsSize() {
+		return listActors.size();
+	}
+	
+	public void displayGameOver() {
+		message = new TextGraphics("GAME OVER", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
+    	message.draw(getCanvas());
+    	displayStartOverCommand();
+	}
+	
+	public void displayEndOfTheGame() {
+		message = new TextGraphics("WELL DONE!", 0.3f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
+    	message.draw(getCanvas());
+    	displayStartOverCommand();
+	}
+	
+	public void displayStartOverCommand() {
+		reset = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.BLUE, Color.BLUE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	reset.setParent(getCanvas());
+    	reset.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
+    	reset.draw(getCanvas());
+    	
+	}
+	
+	public void startOver(ActorGame game, float deltaTime) {
+		game.begin(this.window, this.fileSystem);
 	}
 }

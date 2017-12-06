@@ -18,6 +18,8 @@ public class BikeGame extends ActorGame {
 	private Finish flag;
 	private TextGraphics message;
 	private boolean sight = true;
+    private boolean stayOnScreen, stayOnScreen1;
+    private boolean endOfGame;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -25,8 +27,8 @@ public class BikeGame extends ActorGame {
 		//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 		//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 //		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-		terrain = new Terrain(this, Color.BLACK, Color.BLACK);
-		flag = new Finish(this, new Vector(-2.0f, 0.0f));
+		terrain = new Terrain(this, Color.WHITE, Color.BLACK);
+		flag = new Finish(this, new Vector(40.0f, -5.0f));
 		Vector position = new Vector(5.0f, 6.0f);
 		bike = new Bike(this, position);
 
@@ -38,54 +40,85 @@ public class BikeGame extends ActorGame {
 	
 	public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-class
-	        
 	        //APPELER AVANT LES METHODES DE DETECTION DE CHOCS
-	        if (bike.getHit()) 
+	        
+	        
+	        if (bike.getHit() && endOfGame != true) 
 	        {
-	        	message = new TextGraphics("GAME OVER", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
-	        	message.setParent(getCanvas());
-	        	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
-	        	bike.destroy();
+	        	stayOnScreen = true;
+		        endOfGame = true;
+	        }
+	        if (flag.getListener().hasContacts() && endOfGame != true)
+	        {
+	        	stayOnScreen1 = true;
+	        	endOfGame = true;
 	        }
 	        
-	        
+	        if (stayOnScreen1)
+	        {
+	        	displayEndOfTheGame();
+	        }
+	        else if (stayOnScreen && bike.getHit())
+        	{
+        		displayGameOver();
+        	}
+
+	 
 	        bike.getRightWheel().relax();
 	        bike.getLeftWheel().relax();
 	        
 	        //Setting up to date the movement of the biker
-	        
-	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_UP).isDown())) {
-	        	if (bike.getSight())
-	        	{
-	        		bike.goRight();
-	        	}
-	        	else
-	        	{
-	        		bike.goLeft();
-	        	}
-			}
-	        
-	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_DOWN).isDown())) {
-				bike.getRightWheel().power(0.f);
-				bike.getLeftWheel().power(0.f);
-				
-			}
-	        
-	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SHIFT).isPressed())) {
-				bike.changeSight();
-			}
-	        
-	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
-	        {
-	        	bike.getBike().applyAngularForce(40.0f);
-			}
-	        
-	        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_RIGHT).isDown())) {
-				bike.getBike().applyAngularForce(-40.0f);
-			}
-	        
-	     
-	    }
+		    if (endOfGame != true)
+		    {		
+		        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_UP).isDown())) {
+		        	if (bike.getSight())
+		        	{
+		        		bike.goRight();
+		        	}
+		        	else
+		        	{
+		        		bike.goLeft();
+		        	}
+				}
+		        
+		        if(endOfGame != true)
+			        {
+			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_DOWN).isDown())) {
+						bike.getRightWheel().power(0.f);
+						bike.getLeftWheel().power(0.f);
+						
+					}
+			        
+			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SHIFT).isPressed())) {
+						bike.changeSight();
+					}
+			        
+			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
+			        {
+			        	bike.getBike().applyAngularForce(40.0f);
+					}
+			        
+			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_RIGHT).isDown())) {
+						bike.getBike().applyAngularForce(-40.0f);
+					}
+			    }
+		    }
+		    else if (endOfGame = true)
+		    {
+		    	bike.getLeftWheel().relax();
+		    	bike.getRightWheel().relax();
+			    if (this.getWindow().getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [K] is pressed, the game starts over
+			    {
+			    	removeAllActors();
+			    	endOfGame = false;
+			    	stayOnScreen = false;
+			    	stayOnScreen1 = false;
+			    	bike.setHit(false);
+			    	startOver(this, deltaTime);
+			    }
+		    }
+}
+
 
 	    // This event is raised after game ends, to release additional resources
 	    @Override

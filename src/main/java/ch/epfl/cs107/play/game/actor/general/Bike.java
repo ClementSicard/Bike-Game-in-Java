@@ -16,7 +16,7 @@ public class Bike extends GameEntity implements Actor {
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics;
+	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
 	private boolean sight = true;
 	private final static float MAX_WHEEL_SPEED = 30.0f;
@@ -54,31 +54,36 @@ public class Bike extends GameEntity implements Actor {
 	@Override
 	public void draw(Canvas canvas) {
 		Circle head = new Circle(0.2f, getHeadLocation());
-		headGraphics = new ShapeGraphics(head, Color.GRAY, Color.GRAY, 0.02f);
+		headGraphics = new ShapeGraphics(head, Color.WHITE, Color.WHITE, 0.02f);
 		headGraphics.setParent(this);
 		
 //		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
 //		billyGraphics.setParent(this);
 //	
 		Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
-		armGraphics = new ShapeGraphics(arm, Color.GRAY, Color.GRAY, 0.1f);
+		armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
 		armGraphics.setParent(this);
 		
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
-		rearGraphics = new ShapeGraphics(rear, Color.GRAY, Color.GRAY, 0.1f);
+		rearGraphics = new ShapeGraphics(rear, Color.WHITE, Color.WHITE, 0.1f);
 		rearGraphics.setParent(this);
 		
 		Polyline couisse = new Polyline(getRearLocation(), getKneeLocation());
-		couisseGraphics = new ShapeGraphics(couisse, Color.GRAY, Color.GRAY, 0.1f);
+		couisseGraphics = new ShapeGraphics(couisse, Color.WHITE, Color.WHITE, 0.1f);
 		couisseGraphics.setParent(this);
 		
 		Polyline leftLeg = new Polyline(getKneeLocation(), getLeftFoot());
-		leftLegGraphics = new ShapeGraphics(leftLeg, Color.GRAY, Color.GRAY, 0.1f);
+		leftLegGraphics = new ShapeGraphics(leftLeg, Color.WHITE, Color.WHITE, 0.1f);
 		leftLegGraphics.setParent(this);
 		
 		Polyline rightLeg = new Polyline(getKneeLocation(), getRightfoot());
-		rightLegGraphics = new ShapeGraphics(rightLeg, Color.GRAY, Color.GRAY, 0.1f);
+		rightLegGraphics = new ShapeGraphics(rightLeg, Color.WHITE, Color.WHITE, 0.1f);
 		rightLegGraphics.setParent(this);
+		
+		Polyline cadreBike = new Polyline(new Vector(1.0f, 0.65f), new Vector(-1.0f,0.65f));
+		cadreGraphics = new ShapeGraphics(cadreBike, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 0.2f);
+		cadreGraphics.setParent(this);
+		
 		
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
@@ -89,6 +94,7 @@ public class Bike extends GameEntity implements Actor {
 		leftLegGraphics.draw(canvas);
 		rightLegGraphics.draw(canvas);
 		couisseGraphics.draw(canvas);
+		cadreGraphics.setParent(canvas);
 	}
 	
 //	public void addContactListner() {
@@ -96,7 +102,7 @@ public class Bike extends GameEntity implements Actor {
 //	}
 	
 	public void destroy() {
-		this.destroy();
+		getEntity().destroy();
 	}
 	
 	
@@ -199,6 +205,10 @@ public class Bike extends GameEntity implements Actor {
 	
 	public boolean getHit() {
 		return hit;
+	}
+	
+	public void setHit(boolean a) {
+		hit = a;
 	}
 
 	public void changeSight() {
