@@ -47,7 +47,7 @@ public class BikeGame extends ActorGame {
 	        	stayOnScreen = true;
 		        endOfGame = true;
 	        }
-	        if (flag.getListener().hasContacts() && endOfGame != true)
+	        if (flag.getListener().hasContactWith(bike.getEntity()) && endOfGame != true)
 	        {
 	        	stayOnScreen1 = true;
 	        	endOfGame = true;
@@ -70,7 +70,7 @@ public class BikeGame extends ActorGame {
 	        //Setting up to date the movement of the biker
 		    if (endOfGame != true)
 		    {		
-		        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_UP).isDown())) {
+		        if ((this.getKeyboard().get(KeyEvent.VK_UP).isPressed())) {
 		        	if (bike.getSight())
 		        	{
 		        		bike.goRight();
@@ -83,22 +83,22 @@ public class BikeGame extends ActorGame {
 		        
 		        if(endOfGame != true)
 			        {
-			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_DOWN).isDown())) {
+			        if ((this.getKeyboard().get(KeyEvent.VK_DOWN).isDown())) {
 						bike.getRightWheel().power(0.f);
 						bike.getLeftWheel().power(0.f);
 						
 					}
 			        
-			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
+			        if ((this.getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
 						bike.changeSight();
 					}
 			        
-			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
+			        if ((this.getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
 			        {
 			        	bike.getBike().applyAngularForce(40.0f);
 					}
 			        
-			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_RIGHT).isDown())) {
+			        if ((this.getKeyboard().get(KeyEvent.VK_RIGHT).isDown())) {
 						bike.getBike().applyAngularForce(-40.0f);
 					}
 			    }
@@ -107,7 +107,7 @@ public class BikeGame extends ActorGame {
 		    {
 		    	bike.getLeftWheel().relax();
 		    	bike.getRightWheel().relax();
-			    if (this.getWindow().getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
+			    if (this.getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
 			    {
 			    	removeAllActors();
 			    	endOfGame = false;

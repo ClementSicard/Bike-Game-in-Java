@@ -19,7 +19,7 @@ public class Bike extends GameEntity implements Actor {
 	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
 	private boolean sight = true;
-	private final static float MAX_WHEEL_SPEED = 30.0f;
+	private final static float MAX_WHEEL_SPEED = 50.0f;
 	private boolean hit;
 	private ContactListener bikeListener;
 	private Contact contact;

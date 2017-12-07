@@ -15,42 +15,63 @@ public abstract class GameEntity {
 	private EntityBuilder builder;
 	
 	public GameEntity(ActorGame game, boolean fixed, Vector position) {
+
+		try {
+		if (game == null || position == null) {
+		throw new NullPointerException();
+		}
 		this.game = game;
 		builder = this.game.createEntityBuilder();
 		builder.setPosition(position);
 		builder.setFixed(fixed);
-		entity = builder.build();	
-	}
-	
-	public GameEntity(ActorGame game, boolean fixed) {
+		entity = builder.build();
+		}
+		catch (NullPointerException a) {
+		System.out.println("Parameters are equal to zero");
+		}
+		}
+
+		public GameEntity(ActorGame game, boolean fixed) {
+		try {
+		if (game == null) {
+		throw new NullPointerException();
+		}
 		this.game = game;
 		builder = this.game.createEntityBuilder();
-		builder.setFixed(fixed);	
+		builder.setFixed(fixed);
+		 
 		entity = builder.build();
-	}
-	
-	public void destroy() {
+
+		}
+		 
+		catch (NullPointerException a) {
+		System.out.println("The parameter is equal to zero");
+		}
+		}
+
+		public void destroy() {
 		getEntity().destroy();
-	}
-	
-	protected Entity getEntity() {
+		}
+
+		public Entity getEntity() {
 		return entity;
-	}
-	
-	protected ActorGame getOwner() {
+		}
+
+		protected ActorGame getOwner() {
 		return game;
-	}
-	
-	public Transform getTransform() {
+		}
+
+		public Transform getTransform() {
 		return getEntity().getTransform(); 
-	}
+		}
 
-	public Vector getVelocity() { 
+		public Vector getVelocity() { 
 		return getEntity().getVelocity();
-	}
-	
-	public Window getWindow() {
-		return game.getWindow();
-	}
+		}
 
-}
+		public Window getWindow() {
+		return game.getWindow();
+		}
+
+		}
+

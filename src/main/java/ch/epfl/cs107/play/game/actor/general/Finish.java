@@ -1,12 +1,9 @@
 package ch.epfl.cs107.play.game.actor.general;
 
-import java.awt.Color;
-
 import ch.epfl.cs107.play.game.actor.Actor;
 import ch.epfl.cs107.play.game.actor.ActorGame;
 import ch.epfl.cs107.play.game.actor.GameEntity;
 import ch.epfl.cs107.play.game.actor.ImageGraphics;
-import ch.epfl.cs107.play.game.actor.TextGraphics;
 import ch.epfl.cs107.play.math.BasicContactListener;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
@@ -18,7 +15,7 @@ public class Finish extends GameEntity implements Actor {
 	private PartBuilder partBuilder;
 	private ImageGraphics graphics;
 	private BasicContactListener listener;
-	private TextGraphics message;
+
 	
 	public Finish(ActorGame game, Vector position) {
 		super(game, true, position);
@@ -32,7 +29,7 @@ public class Finish extends GameEntity implements Actor {
 		partBuilder.setShape(polygon);
 		partBuilder.setGhost(true);
 		partBuilder.build();
-		graphics = new ImageGraphics("flag.blue.png", 2.0f, 2.0f);
+		graphics = new ImageGraphics("flag.blue.png", 1.2f, 1.2f);
 		graphics.setParent(this);
 		getOwner().addActor(this);
 		listener = new BasicContactListener();
