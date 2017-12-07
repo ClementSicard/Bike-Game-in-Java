@@ -16,11 +16,9 @@ public class BikeGame extends ActorGame {
 	private Bike bike;
 //	private Crate crate1, crate2, crate3;
 	private Finish flag;
-	private TextGraphics message;
 	private boolean sight = true;
     private boolean stayOnScreen, stayOnScreen1;
     private boolean endOfGame;
-    private boolean destroyHelper = false;
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
@@ -41,7 +39,6 @@ public class BikeGame extends ActorGame {
 	
 	public void update(float deltaTime) {
 	        super.update(deltaTime); //Calling the update() method from the super-class
-	        //APPELER AVANT LES METHODES DE DETECTION DE CHOCS
 	        
 	        
 	        if (bike.getHit() && endOfGame != true) 
@@ -54,6 +51,9 @@ public class BikeGame extends ActorGame {
 	        {
 	        	stayOnScreen1 = true;
 	        	endOfGame = true;
+
+		        bike.getRightWheel().power(0.0f);
+		        bike.getLeftWheel().power(0.0f);
 	        }
 	        
 	        if (stayOnScreen1)
@@ -66,8 +66,6 @@ public class BikeGame extends ActorGame {
         	}
 
 	 
-	        bike.getRightWheel().relax();
-	        bike.getLeftWheel().relax();
 	        
 	        //Setting up to date the movement of the biker
 		    if (endOfGame != true)
@@ -91,7 +89,7 @@ public class BikeGame extends ActorGame {
 						
 					}
 			        
-			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SHIFT).isPressed())) {
+			        if ((this.getWindow().getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
 						bike.changeSight();
 					}
 			        
