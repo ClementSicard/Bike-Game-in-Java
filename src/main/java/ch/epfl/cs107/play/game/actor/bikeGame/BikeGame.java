@@ -107,7 +107,7 @@ public class BikeGame extends ActorGame {
 		    {
 		    	bike.getLeftWheel().relax();
 		    	bike.getRightWheel().relax();
-			    if (this.getWindow().getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [K] is pressed, the game starts over
+			    if (this.getWindow().getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
 			    {
 			    	removeAllActors();
 			    	endOfGame = false;

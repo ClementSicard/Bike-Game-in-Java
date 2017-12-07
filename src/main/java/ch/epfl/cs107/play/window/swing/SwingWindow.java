@@ -189,7 +189,7 @@ public class SwingWindow extends Node implements Window {
 
 		// Show frame
 		frame.pack();
-		frame.setSize(1920, 1080);
+		frame.setSize(1920, 1100);
 		frame.setVisible(true);
 	}
 
