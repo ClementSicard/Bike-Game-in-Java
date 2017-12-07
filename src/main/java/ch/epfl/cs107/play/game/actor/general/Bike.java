@@ -16,13 +16,13 @@ public class Bike extends GameEntity implements Actor {
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
-	private ShapeGraphics armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
+	private ShapeGraphics leftHandGraphics, rightHandGraphics, armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
 	private boolean sight = true;
-	private final static float MAX_WHEEL_SPEED = 50.0f;
+	private final static float MAX_WHEEL_SPEED = 30.0f;
 	private boolean hit;
 	private ContactListener bikeListener;
-	private Contact contact;
+	private boolean armsUp = false;
 	
 	public Bike(ActorGame game, Vector position) { //We consider that the bike is necessarily mobile
 		
@@ -47,22 +47,19 @@ public class Bike extends GameEntity implements Actor {
 		getOwner().addActor(leftWheel);
 		getOwner().addActor(rightWheel);
 		getOwner().addActor(this);
-//		this.addContactListener(listener);
 		this.getEntity().addContactListener(listener);
 	}
 
 	@Override
 	public void draw(Canvas canvas) {
-		Circle head = new Circle(0.2f, getHeadLocation());
+		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.15f, 0.3f)));
 		headGraphics = new ShapeGraphics(head, Color.WHITE, Color.WHITE, 0.02f);
 		headGraphics.setParent(this);
 		
 //		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
 //		billyGraphics.setParent(this);
 //	
-		Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
-		armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
-		armGraphics.setParent(this);
+		
 		
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
 		rearGraphics = new ShapeGraphics(rear, Color.WHITE, Color.WHITE, 0.1f);
@@ -80,32 +77,42 @@ public class Bike extends GameEntity implements Actor {
 		rightLegGraphics = new ShapeGraphics(rightLeg, Color.WHITE, Color.WHITE, 0.1f);
 		rightLegGraphics.setParent(this);
 		
-		Polyline cadreBike = new Polyline(new Vector(1.0f, 0.65f), new Vector(-1.0f,0.65f));
-		cadreGraphics = new ShapeGraphics(cadreBike, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 0.2f);
-		cadreGraphics.setParent(this);
+		if (armsUp) 
+		{	
+			Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
+			leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
+			Polyline rightHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
+			rightHandGraphics = new ShapeGraphics(rightHandUp, Color.WHITE, Color.WHITE, 0.1f);
+			leftHandGraphics.setParent(this);
+			rightHandGraphics.setParent(this);
+			leftHandGraphics.draw(canvas);
+			rightHandGraphics.draw(canvas);
+		}
+		else
+		{
+			Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
+			armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
+			armGraphics.setParent(this);
+			armGraphics.draw(canvas);			
+		}	
 		
-		
+
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
 //		billyGraphics.draw(canvas);
 		headGraphics.draw(canvas);
-		armGraphics.draw(canvas);
 		rearGraphics.draw(canvas);
 		leftLegGraphics.draw(canvas);
 		rightLegGraphics.draw(canvas);
 		couisseGraphics.draw(canvas);
-		cadreGraphics.setParent(canvas);
 	}
-	
-//	public void addContactListner() {
-//		listener.beginContact(contact);
-//	}
+
 	
 	public void destroy() {
 		getEntity().destroy();
-		leftWheel.destroy();
-		rightWheel.destroy();
 		getOwner().removeActor(this);
+		leftWheel.detach();
+		rightWheel.detach();
 	}
 	
 	
@@ -115,11 +122,6 @@ public class Bike extends GameEntity implements Actor {
 	
 	public Wheel getRightWheel() {
 		return rightWheel;
-	}
-	
-	
-	private Vector getHeadLocation() {
-		return new Vector(0.0f, 1.75f);
 	}
 	
 	private Vector getHandLocation() {	
@@ -221,6 +223,10 @@ public class Bike extends GameEntity implements Actor {
 	public ContactListener getListener() {
 		return bikeListener;
 	}
+	
+	public void setArmsUp(boolean a) {
+		armsUp = a;
+	}
 
 	ContactListener listener = new ContactListener () {
 
@@ -240,7 +246,6 @@ public class Bike extends GameEntity implements Actor {
 			{
 				
 			}
-			
 			hit = true ;
 		}
 		

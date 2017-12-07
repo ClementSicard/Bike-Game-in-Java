@@ -17,7 +17,7 @@ public class BikeGame extends ActorGame {
 //	private Crate crate1, crate2, crate3;
 	private Finish flag;
 	private boolean sight = true;
-    private boolean stayOnScreen, stayOnScreen1;
+    private boolean stayOnScreen, stayOnScreen1, armsUp;
     private boolean endOfGame;
 	
 	@Override
@@ -46,7 +46,13 @@ public class BikeGame extends ActorGame {
 	        	bike.destroy();
 	        	stayOnScreen = true;
 		        endOfGame = true;
+		        
 	        }
+	        else if (bike.getHit() && flag.getListener().hasContactWith(bike.getEntity()))
+	        {
+	        	bike.destroy();
+	        }
+	        
 	        if (flag.getListener().hasContactWith(bike.getEntity()) && endOfGame != true)
 	        {
 	        	stayOnScreen1 = true;
@@ -58,6 +64,7 @@ public class BikeGame extends ActorGame {
 	        
 	        if (stayOnScreen1)
 	        {
+	        	bike.setArmsUp(true);
 	        	displayEndOfTheGame();
 	        }
 	        else if (stayOnScreen && bike.getHit())
@@ -70,7 +77,7 @@ public class BikeGame extends ActorGame {
 	        //Setting up to date the movement of the biker
 		    if (endOfGame != true)
 		    {		
-		        if ((this.getKeyboard().get(KeyEvent.VK_UP).isPressed())) {
+		        if ((this.getKeyboard().get(KeyEvent.VK_UP).isDown())) {
 		        	if (bike.getSight())
 		        	{
 		        		bike.goRight();
@@ -133,5 +140,5 @@ public class BikeGame extends ActorGame {
 	    @Override
 	    public Finish getFinish() {
 	    	return this.flag;
-	    }
+	    } 
 }

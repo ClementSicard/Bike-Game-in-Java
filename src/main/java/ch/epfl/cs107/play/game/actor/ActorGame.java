@@ -164,7 +164,7 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayStartOverCommand() {
-		reset = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.BLUE, Color.BLUE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		reset = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.BLUE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	reset.setParent(getCanvas());
     	reset.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	reset.draw(getCanvas());
