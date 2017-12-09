@@ -35,7 +35,7 @@ public class TerrainGlissant extends GameEntity implements Actor {
 		graphics = new ShapeGraphics(polyline, fond, bord, 0.2f, 1.0f, 0.0f);
 		graphics.setParent(this);
 		
-		getOwner().addActor(this);
+		//getOwner().addActor(this);
 	}
 
 

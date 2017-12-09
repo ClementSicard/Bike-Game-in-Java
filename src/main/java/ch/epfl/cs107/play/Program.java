@@ -3,6 +3,7 @@ package ch.epfl.cs107.play;
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.actor.bikeGame.BikeGame;
+import ch.epfl.cs107.play.game.actor.bikeGame.BikeGameCopie;
 import ch.epfl.cs107.play.game.actor.crateGame.CrateGame;
 import ch.epfl.cs107.play.game.tutorial.*;
 import ch.epfl.cs107.play.io.DefaultFileSystem;
@@ -34,7 +35,7 @@ public class Program {
 		try {
 
 			// Create a demo game
-			Game game = new BikeGame();
+			Game game = new BikeGameCopie();
 			if (game.begin(window, fileSystem)) {
 
 				// Use system clock to keep track of time progression

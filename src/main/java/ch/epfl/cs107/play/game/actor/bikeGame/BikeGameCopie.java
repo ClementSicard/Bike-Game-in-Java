@@ -1,72 +1,56 @@
 package ch.epfl.cs107.play.game.actor.bikeGame;
 
-import java.awt.Color;
+import java.util.Arrays;
 import java.util.List;
-
 import com.sun.glass.events.KeyEvent;
-import com.sun.glass.ui.Window.Level;
-
 import ch.epfl.cs107.play.game.actor.*;
+import ch.epfl.cs107.play.game.actor.Levels.BasicBikeGameLevel;
+import ch.epfl.cs107.play.game.actor.Levels.CrazyEpicGameLevel;
 import ch.epfl.cs107.play.game.actor.general.*;
 import ch.epfl.cs107.play.io.FileSystem;
-import ch.epfl.cs107.play.math.Transform;
-import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Window;
 
-public class BikeGame extends ActorGame {
-	
-	private Terrain terrain;
-	private Bike bike;
-//	private Crate crate1, crate2, crate3;
-	private Finish flag;
+public class BikeGameCopie extends ActorGame {
+
 	private boolean sight = true;
     private boolean stayOnScreen, stayOnScreen1;
     private boolean endOfGame;
     protected List<Level> levelList;
-    private int level;
+    private int level = 0;
+    private Level level1;
+    private Bike bike;
+    private Terrain terrain;
+    private Finish flag;
     
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
-		
 		super.begin(window, fileSystem);
 		
-		if (level == 0)
-		{
-			//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
-			//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
-	//		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-			terrain = new Terrain(this, Color.CYAN, Color.WHITE);
-			flag = new Finish(this, new Vector(50.0f, -5.0f));
-			Vector position = new Vector(5.0f, 6.0f);
-			bike = new Bike(this, position);
-			this.setViewCandidate(bike);
-		}
-		else if (level == 1)
-		{
-			//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
-			//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
-	//		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-			terrain = new Terrain(this, Color.GREEN, Color.WHITE);
-			flag = new Finish(this, new Vector(60.0f, 0.0f));
-			Vector position = new Vector(5.0f, 6.0f);
-			bike = new Bike(this, position);
-			this.setViewCandidate(bike);
-		}
+		
+		levelList = createLevelList();
+		//createText();
+		startGame(level);
+		
 		return true;
+
 	}
 	
 	
 	public void update(float deltaTime) {
-	        super.update(deltaTime); //Calling the update() method from the super-class
+	        super.update(deltaTime);  //Calling the update() method from the super-class
 	        
+	        level1 = levelList.get(level);
+	        bike = levelList.get(level).getBike();
+	        flag = levelList.get(level).getFlag();
+	        terrain = levelList.get(level).getTerrain();
+	        setViewCandidate(bike);
 	        
 	        if (bike.getHit() && endOfGame != true) 
 	        {
 	        	bike.destroy();
 	        	stayOnScreen = true;
 		        endOfGame = true;
-		        
 	        }
 	        else if (bike.getHit() && flag.getListener().hasContactWith(bike.getEntity()))
 	        {
@@ -152,20 +136,26 @@ public class BikeGame extends ActorGame {
 			    	stayOnScreen1 = false;
 			    	bike.setHit(false);
 			    	level++;
-			    	if(level <= 1)
+//			    	System.out.println(level);
+			    	System.out.println(levelList.size());
+			    	
+			    	if (level <= levelList.size() - 1)
 			    	{
-			    		startOver(this, deltaTime);
+			    		startGame(level);
 			    	}
 			    	else
 			    	{
-			    		
+			    		displayFinalMessage();
 			    	}
 			    }
-		    }
+		}
 }
 
 
-	    // This event is raised after game ends, to release additional resources
+
+
+
+		// This event is raised after game ends, to release additional resources
 	    @Override
 	    public void end() {
 	        // Empty on purpose, no cleanup required yet
@@ -178,5 +168,21 @@ public class BikeGame extends ActorGame {
 	    @Override
 	    public Finish getFinish() {
 	    	return this.flag;
-	    } 
+	    }
+	    
+	    protected List<Level> createLevelList() {
+	    	return Arrays.asList(
+	    			new BasicBikeGameLevel(this),
+	    			new CrazyEpicGameLevel(this));
+	    			
+	    }
+	    
+	    public void startGame(int a) {
+	      	levelList.get(a).createAllActors();
+	    }
+	    
+	    @Override
+	    public void addActor(Actor actor) {
+	    	super.addActor(actor);
+	    }
 }

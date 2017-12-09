@@ -52,7 +52,7 @@ public class Bike extends GameEntity implements Actor {
 
 	@Override
 	public void draw(Canvas canvas) {
-		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.15f, 0.3f)));
+		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.0f, 0.3f)));
 		headGraphics = new ShapeGraphics(head, Color.WHITE, Color.WHITE, 0.02f);
 		headGraphics.setParent(this);
 		

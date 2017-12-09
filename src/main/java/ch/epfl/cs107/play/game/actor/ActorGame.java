@@ -2,7 +2,6 @@ package ch.epfl.cs107.play.game.actor;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
 import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.EntityBuilder;
@@ -14,7 +13,6 @@ import ch.epfl.cs107.play.math.World;
 import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Keyboard;
 import ch.epfl.cs107.play.window.Window;
-import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.game.actor.general.Finish;
 
 public abstract class ActorGame implements Game{
@@ -38,7 +36,7 @@ public abstract class ActorGame implements Game{
 	private static final float VIEW_TARGET_VELOCITY_COMPENSATION = 0.2f;
 	private static final float VIEW_INTERPOLATION_RATIO_PER_SECOND = 0.1f;
 	private static final float VIEW_SCALE = 10.0f;
-	private TextGraphics message, reset;
+	private TextGraphics message;
 	
 	
 	public Keyboard getKeyboard() {
@@ -160,18 +158,31 @@ public abstract class ActorGame implements Game{
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
     	message.draw(getCanvas());
+    	
+    	message = new TextGraphics("PRESS [ENTER] FOR NEXT LEVEL", 0.1f, Color.WHITE, Color.GREEN, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.0f, -1.4f));
+    	message.draw(getCanvas());
+    	
     	displayStartOverCommand();
 	}
 	
 	public void displayStartOverCommand() {
-		reset = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.BLUE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
-    	reset.setParent(getCanvas());
-    	reset.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
-    	reset.draw(getCanvas());
+		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
+    	message.draw(getCanvas());
     	
 	}
 	
 	public void startOver(ActorGame game, float deltaTime) {
 		game.begin(this.window, this.fileSystem);
+	}
+	
+	public void displayFinalMessage() {
+		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
+    	message.draw(getCanvas());
 	}
 }
