@@ -45,7 +45,7 @@ public class Program {
 				// Run until the user try to close the window
 				while (!window.isCloseRequested()) {
 
-					// Compute time interval
+					// Compute time interval 
 					before = now;
 					now = System.nanoTime();
 					float deltaTime = (now - before);

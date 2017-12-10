@@ -54,6 +54,5 @@ public class Plank extends GameEntity implements Actor {
 		
 		public void destroy() {
 			getEntity().destroy();
-			getOwner().removeActor(this);
 		}
 }

@@ -15,7 +15,7 @@ public class RopeConstraint extends Constraint {
     
     /** @return attachment point on first entity, in local coordinates, not null */
     public Vector getFirstAnchor() {
-        Vec2 anchor = ropeJoint.getLocalAnchorA();
+        Vec2 anchor = ropeJoint.getLocalAnchorA(); 
         return new Vector(anchor.x, anchor.y);
     }
     

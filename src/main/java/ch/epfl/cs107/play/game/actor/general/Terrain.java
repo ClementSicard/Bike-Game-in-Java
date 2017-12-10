@@ -32,7 +32,7 @@ public class Terrain extends GameEntity implements Actor {
 	}
 	
 	public void destroy() {
-		this.getEntity().destroy();
+		getEntity().destroy();
 	}
 
 }

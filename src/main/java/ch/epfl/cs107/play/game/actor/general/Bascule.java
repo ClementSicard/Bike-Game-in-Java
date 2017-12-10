@@ -17,8 +17,8 @@ public class Bascule extends GameEntity implements Actor {
 	
 	public Bascule (ActorGame game, boolean fixed, Vector position) {
 		super(game, fixed, position);
-		ball = new Ball (game, false, new Vector(2.0f, 2.0f), 0.5f, 1.0f, 0.5f);
-		plank = new Plank (game, false, new Vector(-4.0f, 2.0f), 0.5f, 0.2f, 5.0f);
+		ball = new Ball (game, false, new Vector(2.0f, 2.0f), 0.5f);
+		plank = new Plank (game, false, new Vector(-4.0f, 2.0f), 1.0f, 0.2f, 5.0f);
 		revoluteConstraintBuilder = getOwner().createRevoluteConstraintBuilder () ;
 		revoluteConstraintBuilder.setFirstEntity(ball.getEntity());
   		revoluteConstraintBuilder.setFirstAnchor(new Vector(0.5f, 0.5f));
@@ -38,7 +38,6 @@ public class Bascule extends GameEntity implements Actor {
 	
 	public void destroy() {
 		constraint.destroy();
-		getOwner().removeActor(this);
 		ball.getEntity().destroy();
 		plank.getEntity().destroy();
 		getOwner().removeActor(ball);

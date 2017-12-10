@@ -17,14 +17,13 @@ import ch.epfl.cs107.play.window.Canvas;
 		private ImageGraphics ballGraphics;
 		
 		
-		public Ball (ActorGame game, boolean fixed, Vector position, float friction, float height, float width) {
+		public Ball (ActorGame game, boolean fixed, Vector position, float ballRadius) {
 			super(game, fixed, position);
 
 				ballBuilder = getEntity().createPartBuilder();
-				float ballRadius = 0.3f;
 				Circle circle = new Circle(ballRadius);
 			 	ballBuilder.setShape(circle);
-			 	ballBuilder.setFriction(0.5f);
+			 	ballBuilder.setFriction(0.5f); 
 			 	ballBuilder.build();
 			 	ballGraphics = new ImageGraphics("explosive.11.png", 2.0f*ballRadius, 2.0f*ballRadius, new Vector (0.5f, 0.5f));
 			 	ballGraphics.setDepth(0.5f);
@@ -47,7 +46,6 @@ import ch.epfl.cs107.play.window.Canvas;
 			
 			public void destroy() {
 				getEntity().destroy();
-				getOwner().removeActor(this);
 			}
 		}
 

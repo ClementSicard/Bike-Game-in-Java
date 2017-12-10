@@ -132,6 +132,8 @@ public class Bike extends GameEntity implements Actor {
 		getOwner().removeActor(this);
 		leftWheel.detach();
 		rightWheel.detach();
+		getOwner().removeActor(leftWheel);
+		getOwner().removeActor(rightWheel);
 	}
 	
 	
@@ -150,7 +152,7 @@ public class Bike extends GameEntity implements Actor {
 		}
 		else
 		{
-			return new Vector(-0.5f, 1.0f);
+			return new Vector(-0.5f, 1.0f); 
 		}
 	}
 	

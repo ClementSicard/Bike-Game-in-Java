@@ -45,7 +45,7 @@ public class BikeGameCopie extends ActorGame {
 	        bike = levelList.get(level).getBike();
 	        flag = levelList.get(level).getFlag();
 	        terrain = levelList.get(level).getTerrain();
-	        bascule = levelList.get(level).getBascule();
+	        //bascule = levelList.get(level).getBascule();
 	        setViewCandidate(bike);
 	        
 	        if (bike.getHit() && endOfGame != true) 
