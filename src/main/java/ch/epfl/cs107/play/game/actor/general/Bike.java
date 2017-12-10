@@ -22,7 +22,7 @@ public class Bike extends GameEntity implements Actor {
 	private Wheel leftWheel, rightWheel;
 	private ShapeGraphics leftHandGraphics, rightHandGraphics, armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
-	private boolean sight = true;
+	private boolean orientation = true;
 	private final static float MAX_WHEEL_SPEED = 10.0f;
 	private boolean hit;
 	private ContactListener bikeListener;
@@ -79,7 +79,7 @@ public class Bike extends GameEntity implements Actor {
 		
 		if (armsUp){
 			
-			if(sight) {
+			if(orientation) {
 				Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
 				leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
 				Polyline rightHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
@@ -142,7 +142,7 @@ public class Bike extends GameEntity implements Actor {
 	}
 	
 	private Vector getHandLocation() {	
-		if (sight)
+		if (orientation)
 		{
 			return new Vector(0.5f, 1.0f);
 		}
@@ -153,7 +153,7 @@ public class Bike extends GameEntity implements Actor {
 	}
 	
 	private Vector getShoulderLocation() {
-		if (sight)
+		if (orientation)
 		{
 			return new Vector(-0.1f, 1.4f);
 		}
@@ -164,7 +164,7 @@ public class Bike extends GameEntity implements Actor {
 	}
 	
 	private Vector getRearLocation() {
-		if (sight) 
+		if (orientation) 
 		{
 			return new Vector(-0.5f, 0.8f);
 		}
@@ -179,7 +179,7 @@ public class Bike extends GameEntity implements Actor {
 		float sinAngle = (float) Math.sin(getAngularPosition());
 		//float norme = new Vector((-cosAngle + getKneeLocation().getX()), (sinAngle - getKneeLocation().getY())).getLength();
 		
-		if (sight)
+		if (orientation)
 		{
 			return new Vector((-cosAngle + getKneeLocation().getX()+0.25f)/5, (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
@@ -194,7 +194,7 @@ public class Bike extends GameEntity implements Actor {
 		float sinAngle = (float) Math.sin(getAngularPosition() + Math.PI);
 		//float norme = new Vector((-cosAngle + getKneeLocation().getX()), (sinAngle - getKneeLocation().getY())).getLength();
 		
-		if (sight)
+		if (orientation)
 		{
 			return new Vector((-cosAngle + getKneeLocation().getX()+0.25f)/5, (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
@@ -208,8 +208,8 @@ public class Bike extends GameEntity implements Actor {
 		return this.getEntity();
 	}
 
-	public boolean getSight() {
-		return sight;
+	public boolean getOrientation() {
+		return orientation;
 	}
 
 	public void goRight() {
@@ -241,8 +241,8 @@ public class Bike extends GameEntity implements Actor {
 		hit = a;
 	}
 
-	public void changeSight() {
-		sight = !sight;
+	public void changeOrientation() {
+		orientation = !orientation;
 	}
 	
 	public ContactListener getListener() {
@@ -254,7 +254,7 @@ public class Bike extends GameEntity implements Actor {
 	}
 	
 	public double getAngularPosition() {
-		if (sight) 
+		if (orientation) 
 		{
 			return leftWheel.getAngularPostion();
 		}

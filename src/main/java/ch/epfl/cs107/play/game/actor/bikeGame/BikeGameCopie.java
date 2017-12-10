@@ -12,7 +12,7 @@ import ch.epfl.cs107.play.window.Window;
 
 public class BikeGameCopie extends ActorGame {
 
-	private boolean sight = true;
+	private boolean orientation = true;
     private boolean stayOnScreen, stayOnScreen1;
     private boolean endOfGame;
     protected List<Level> levelList;
@@ -86,7 +86,7 @@ public class BikeGameCopie extends ActorGame {
 		    if (endOfGame != true)
 		    {		
 		        if ((this.getKeyboard().get(KeyEvent.VK_UP).isDown())) {
-		        	if (bike.getSight())
+		        	if (bike.getOrientation())
 		        	{
 		        		bike.goRight();
 		        	}
@@ -105,7 +105,7 @@ public class BikeGameCopie extends ActorGame {
 					}
 			        
 			        if ((this.getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
-						bike.changeSight();
+						bike.changeOrientation();
 					}
 			        
 			        if ((this.getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
@@ -164,8 +164,8 @@ public class BikeGameCopie extends ActorGame {
 	        // Empty on purpose, no cleanup required yet
 	    }
 	    
-	    public boolean getSight() {
-	    	return sight;
+	    public boolean getorientation() {
+	    	return orientation;
 	    }
 	    
 	    @Override

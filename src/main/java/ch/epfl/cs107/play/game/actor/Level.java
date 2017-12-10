@@ -9,15 +9,11 @@ import ch.epfl.cs107.play.game.actor.general.Terrain;
 import ch.epfl.cs107.play.math.Node;
 
 public abstract class Level extends Node implements Actor {
-	public Level() {
-		
-	}
+	public Level() {}
 	
 	public abstract void createAllActors();
 	
-	public void createText() {
-		
-	}
+	public void createText() {}
 
 	public abstract Bike getBike();
 	
