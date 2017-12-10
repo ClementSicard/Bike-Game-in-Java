@@ -128,8 +128,8 @@ public class Bike extends GameEntity implements Actor {
 		getOwner().removeActor(this);
 		leftWheel.detach();
 		rightWheel.detach();
-		getOwner().removeActor(leftWheel);
-		getOwner().removeActor(rightWheel);
+//		getOwner().removeActor(leftWheel);     //We prefer detaching the wheels rather than simply deleting them
+//		getOwner().removeActor(rightWheel);
 	}
 	
 	
@@ -177,26 +177,30 @@ public class Bike extends GameEntity implements Actor {
 	private Vector getLeftFoot() {
 		float cosAngle = (float) Math.cos(getAngularPosition());
 		float sinAngle = (float) Math.sin(getAngularPosition());
-		float norme = new Vector((cosAngle + getKneeLocation().getX()), (sinAngle + getKneeLocation().getY())).getLength();
+		//float norme = new Vector((-cosAngle + getKneeLocation().getX()), (sinAngle - getKneeLocation().getY())).getLength();
 		
 		if (sight)
 		{
-			return new Vector((cosAngle - getKneeLocation().getX())/norme, (sinAngle - getKneeLocation().getY())/norme);
+			return new Vector((-cosAngle + getKneeLocation().getX()+0.25f)/5, (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
 		else
 		{
-			return new Vector(-(-cosAngle + 0.5f)/norme, (-sinAngle + 0.6f)/norme);
+			return new Vector(-(-cosAngle + getKneeLocation().getX()+0.25f)/5,- (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
 	}
 	
 	private Vector getRightfoot() {
+		float cosAngle = (float) Math.cos(getAngularPosition() + Math.PI); //Dephasing the left foot from the right one
+		float sinAngle = (float) Math.sin(getAngularPosition() + Math.PI);
+		//float norme = new Vector((-cosAngle + getKneeLocation().getX()), (sinAngle - getKneeLocation().getY())).getLength();
+		
 		if (sight)
 		{
-			return new Vector(0.1f, 0.1f);
+			return new Vector((-cosAngle + getKneeLocation().getX()+0.25f)/5, (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
 		else
 		{
-			return new Vector(-0.1f, 0.1f);
+			return new Vector(-(-cosAngle + getKneeLocation().getX()+0.25f)/5,- (-sinAngle + getKneeLocation().getY()-0.5f)/5);
 		}
 	}
 		
@@ -211,7 +215,7 @@ public class Bike extends GameEntity implements Actor {
 	public void goRight() {
 		if (leftWheel.getSpeed() > -MAX_WHEEL_SPEED)
 		{
-			getLeftWheel().power(-2.0f);
+			getLeftWheel().power(-20.0f);
 			getRightWheel().relax();
 		}
 	}
@@ -224,7 +228,7 @@ public class Bike extends GameEntity implements Actor {
 	public void goLeft() {
 		if (rightWheel.getSpeed() < MAX_WHEEL_SPEED)
 		{
-			getRightWheel().power(2.0f);
+			getRightWheel().power(20.f);
 			getLeftWheel().relax();
 		}	
 	}
