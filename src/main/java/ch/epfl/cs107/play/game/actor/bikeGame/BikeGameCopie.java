@@ -22,6 +22,7 @@ public class BikeGameCopie extends ActorGame {
     private Terrain terrain;
     private Finish flag;
     private Bascule bascule;
+    private Pendule pendule;
     
 	
 	@Override
@@ -42,10 +43,11 @@ public class BikeGameCopie extends ActorGame {
 	        super.update(deltaTime);  //Calling the update() method from the super-class
 	        
 	        level1 = levelList.get(level);
-	        bike = levelList.get(level).getBike();
-	        flag = levelList.get(level).getFlag();
-	        terrain = levelList.get(level).getTerrain();
-	        bascule = levelList.get(level).getBascule();
+	        bike = level1.getBike();
+	        flag = level1.getFlag();
+	        terrain = level1.getTerrain();
+	        bascule = level1.getBascule();
+	        pendule = level1.getPendule();
 	        setViewCandidate(bike);
 	        
 	        if (bike.getHit() && endOfGame != true) 
@@ -123,7 +125,7 @@ public class BikeGameCopie extends ActorGame {
 		    	
 			    if (this.getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
 			    {
-			    	removeAllActors();
+			    	clearAll();
 			    	endOfGame = false;
 			    	stayOnScreen = false;
 			    	stayOnScreen1 = false;
@@ -132,7 +134,8 @@ public class BikeGameCopie extends ActorGame {
 			    }
 			    else if (this.getKeyboard().get(KeyEvent.VK_ENTER).isPressed() && stayOnScreen1)
 			    {
-			    	clearAll();
+			    	destroyAllEntities();
+			    	removeAllActors();
 			    	endOfGame = false;
 			    	stayOnScreen = false;
 			    	stayOnScreen1 = false;
@@ -146,7 +149,6 @@ public class BikeGameCopie extends ActorGame {
 			    	else
 			    	{
 			    		displayFinalMessage();
-			    		end();
 			    	}
 			    }
 		}

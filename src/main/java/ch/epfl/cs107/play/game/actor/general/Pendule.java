@@ -42,6 +42,8 @@ public class Pendule extends GameEntity implements Actor {
 		builder.setMaxLength(4.0f);
 		builder.setInternalCollision(true);
 		constraint = builder.build();
+		getOwner().addActor(crate);
+		getOwner().addActor(ball);
 	}
 
 	@Override
@@ -54,7 +56,9 @@ public class Pendule extends GameEntity implements Actor {
 	}
 	
 	public void destroy() {
-		ball.destroy();
-		crate.destroy();
+		ball.getEntity().destroy();
+		crate.getEntity().destroy();
+		getOwner().removeActor(ball);
+		getOwner().removeActor(crate);
 	}
 }
