@@ -31,7 +31,7 @@ public class Pendule extends GameEntity implements Actor {
 		partBuilder = getEntity().createPartBuilder();
 //		Polyline polyline= new Polyline(, position);
 //		graphics = new ShapeGraphics(polyline, Color.WHITE, Color.WHITE, 1.0f);
-		ball = new Ball(game, false, position.add(-4.0f, -4.0f), 0.5f);
+		ball = new Ball(game, false, position.add(-4.0f, 0.0f), 0.5f);
 		crate = new Crate(game, true, position, 5.0f, 1.0f, 1.0f);
 		
 		builder = getOwner().createRopeConstraintBuilder();

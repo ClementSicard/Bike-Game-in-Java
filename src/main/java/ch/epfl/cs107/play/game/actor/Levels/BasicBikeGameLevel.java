@@ -55,7 +55,7 @@ public class BasicBikeGameLevel extends Level implements Actor {
 				new Vector(3.0f, 0.0f)
 				);
 		bascule = new Bascule(game, false, new Vector(2.0f, 2.0f));
-		pendule = new Pendule(game, false, new Vector(10.f , 15.0f));
+		pendule = new Pendule(game, false, new Vector(8.0f , 8.0f));
 		//emitter = new Emitter(game.getCanvas(), polygon, "fart03.png", 1.0f, 1.0f, new Vector(5.0f, -1.0f), 1.0f, 0.0f);
 		game.addActor(terrain);
 		game.addActor(bike);

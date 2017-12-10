@@ -28,7 +28,7 @@ public class Wheel extends GameEntity implements Actor {
 		partBuilder.setFriction(0.5f);
 		partBuilder.build();
 		
-		wheelGraphics = new ImageGraphics("wheel.png", 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
+		wheelGraphics = new ImageGraphics("wheel2.png", 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
 		wheelGraphics.setAlpha(1.0f);
 		wheelGraphics.setDepth(0.0f);
 		wheelGraphics.setParent(this);	
@@ -77,5 +77,9 @@ public class Wheel extends GameEntity implements Actor {
 	public void destroy() {
 		getEntity().destroy();
 		getOwner().removeActor(this);
+	}
+	
+	public double getAngularPostion() {
+		return this.getEntity().getAngularPosition()%(2*Math.PI);
 	}
 }

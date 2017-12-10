@@ -45,7 +45,7 @@ public class BikeGameCopie extends ActorGame {
 	        bike = levelList.get(level).getBike();
 	        flag = levelList.get(level).getFlag();
 	        terrain = levelList.get(level).getTerrain();
-	        //bascule = levelList.get(level).getBascule();
+	        bascule = levelList.get(level).getBascule();
 	        setViewCandidate(bike);
 	        
 	        if (bike.getHit() && endOfGame != true) 
@@ -138,8 +138,6 @@ public class BikeGameCopie extends ActorGame {
 			    	stayOnScreen1 = false;
 			    	bike.setHit(false);
 			    	level++;
-//			    	System.out.println(level);
-			    	System.out.println(levelList.size());
 			    	
 			    	if (level <= levelList.size() - 1)
 			    	{
@@ -148,6 +146,7 @@ public class BikeGameCopie extends ActorGame {
 			    	else
 			    	{
 			    		displayFinalMessage();
+			    		end();
 			    	}
 			    }
 		}

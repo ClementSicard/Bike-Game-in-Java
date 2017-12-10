@@ -23,7 +23,7 @@ public class Bike extends GameEntity implements Actor {
 	private ShapeGraphics leftHandGraphics, rightHandGraphics, armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
 	private boolean sight = true;
-	private final static float MAX_WHEEL_SPEED = 30.0f;
+	private final static float MAX_WHEEL_SPEED = 10.0f;
 	private boolean hit;
 	private ContactListener bikeListener;
 	private boolean armsUp = false;
@@ -38,11 +38,9 @@ public class Bike extends GameEntity implements Actor {
 				0.0f, 2.0f,
 				-0.5f, 1.0f);
 		partBuilder.setShape(polygon);
-		partBuilder.setGhost(true);
+//		partBuilder.setGhost(true);
+		partBuilder.setGhost(false);
 		partBuilder.build();
-		
-//		billyGraphics = new ImageGraphics("billy.png", 6.0f, 4.0f);
-//		billyGraphics.setParent(this);
 		
 		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f);
 		rightWheel = new Wheel(getOwner(), false, position.add(1.0f, 0.f), 0.5f);
@@ -63,8 +61,6 @@ public class Bike extends GameEntity implements Actor {
 //		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
 //		billyGraphics.setParent(this);
 	
-		
-		
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
 		rearGraphics = new ShapeGraphics(rear, Color.WHITE, Color.WHITE, 0.1f);
 		rearGraphics.setParent(this);
@@ -178,19 +174,18 @@ public class Bike extends GameEntity implements Actor {
 		}
 	}
 	
-	private Vector getKneeLocation() {
-		
-		return new Vector(0.f, 0.5f);
-	}
-	
 	private Vector getLeftFoot() {
+		float cosAngle = (float) Math.cos(getAngularPosition());
+		float sinAngle = (float) Math.sin(getAngularPosition());
+		float norme = new Vector((cosAngle + getKneeLocation().getX()), (sinAngle + getKneeLocation().getY())).getLength();
+		
 		if (sight)
 		{
-			return new Vector(-0.1f, 0.1f);
+			return new Vector((cosAngle - getKneeLocation().getX())/norme, (sinAngle - getKneeLocation().getY())/norme);
 		}
 		else
 		{
-			return new Vector(0.1f, 0.1f);
+			return new Vector(-(-cosAngle + 0.5f)/norme, (-sinAngle + 0.6f)/norme);
 		}
 	}
 	
@@ -216,15 +211,20 @@ public class Bike extends GameEntity implements Actor {
 	public void goRight() {
 		if (leftWheel.getSpeed() > -MAX_WHEEL_SPEED)
 		{
-			getLeftWheel().power(-20.0f);
+			getLeftWheel().power(-2.0f);
 			getRightWheel().relax();
 		}
+	}
+	
+	private Vector getKneeLocation() {
+		
+		return new Vector(0.f, 0.5f);
 	}
 
 	public void goLeft() {
 		if (rightWheel.getSpeed() < MAX_WHEEL_SPEED)
 		{
-			getRightWheel().power(20.0f);
+			getRightWheel().power(2.0f);
 			getLeftWheel().relax();
 		}	
 	}
@@ -247,6 +247,17 @@ public class Bike extends GameEntity implements Actor {
 	
 	public void setArmsUp(boolean a) {
 		armsUp = a;
+	}
+	
+	public double getAngularPosition() {
+		if (sight) 
+		{
+			return leftWheel.getAngularPostion();
+		}
+		else
+		{
+			return rightWheel.getAngularPostion();
+		}
 	}
 
 	ContactListener listener = new ContactListener () {
