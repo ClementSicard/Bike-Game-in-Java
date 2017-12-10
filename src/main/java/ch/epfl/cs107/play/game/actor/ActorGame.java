@@ -6,6 +6,7 @@ import ch.epfl.cs107.play.game.Game;
 import ch.epfl.cs107.play.io.FileSystem;
 import ch.epfl.cs107.play.math.EntityBuilder;
 import ch.epfl.cs107.play.math.Positionable;
+import ch.epfl.cs107.play.math.RevoluteConstraintBuilder;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.math.WheelConstraintBuilder;
@@ -105,6 +106,10 @@ public abstract class ActorGame implements Game{
 		return world.createWheelConstraintBuilder();
 	}
 	
+	public RevoluteConstraintBuilder createRevoluteConstraintBuilder() {
+		return world.createRevoluteConstraintBuilder();
+	}
+	
 	public void addActor(Actor actor) {
 		listActors.add(actor);
 	}
@@ -125,7 +130,14 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void removeAllActors() {
-		listActors.removeAll(listActors);
+		listActors.clear();
+	}
+	
+	public void destroyAllEntities() { //Must be called before removeAllActors to prevent a misconduct
+		for (int i = 0; i < listActors.size(); i++)
+		{
+			listActors.get(i).destroy();
+		}
 	}
 	
 	public boolean getSight() {
@@ -146,7 +158,7 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayGameOver() {
-		message = new TextGraphics("GAME OVER", 0.3f, Color.CYAN, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("GAME OVER", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
     	message.draw(getCanvas());
@@ -154,12 +166,12 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayEndOfTheGame() {
-		message = new TextGraphics("WELL DONE!", 0.3f, Color.CYAN, Color.WHITE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("WELL DONE!", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.0f));
     	message.draw(getCanvas());
     	
-    	message = new TextGraphics("PRESS [ENTER] FOR NEXT LEVEL", 0.1f, Color.WHITE, Color.GREEN, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message = new TextGraphics("PRESS [ENTER] FOR NEXT LEVEL", 0.1f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.0f, -1.4f));
     	message.draw(getCanvas());
@@ -168,7 +180,7 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayStartOverCommand() {
-		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	message.draw(getCanvas());
@@ -180,9 +192,14 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayFinalMessage() {
-		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.RED, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("CONGRATS ! YOU FINISHED THE GAME", 0.1f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	message.draw(getCanvas());
+	}
+	
+	public void clearAll() {
+		destroyAllEntities();
+		removeAllActors();
 	}
 }

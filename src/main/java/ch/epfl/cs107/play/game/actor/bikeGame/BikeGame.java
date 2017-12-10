@@ -36,7 +36,7 @@ public class BikeGame extends ActorGame {
 			//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 			//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 	//		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-			terrain = new Terrain(this, Color.CYAN, Color.WHITE);
+		//	terrain = new Terrain(this, Color.CYAN, Color.WHITE);
 			flag = new Finish(this, new Vector(50.0f, -5.0f));
 			Vector position = new Vector(5.0f, 6.0f);
 			bike = new Bike(this, position);
@@ -47,7 +47,7 @@ public class BikeGame extends ActorGame {
 			//crate1 = new Crate(this, false, new Vector(0.0f, 5.0f), 0.5f, 1.0f, 1.0f);
 			//crate2 = new Crate(this, false, new Vector(0.2f, 7.0f), 0.5f, 1.0f, 1.0f);
 	//		crate3 = new Crate(this, false, new Vector(2.0f, 6.0f), 0.5f, 1.0f, 1.0f);
-			terrain = new Terrain(this, Color.GREEN, Color.WHITE);
+//			terrain = new Terrain(this, Color.GREEN, Color.WHITE);
 			flag = new Finish(this, new Vector(60.0f, 0.0f));
 			Vector position = new Vector(5.0f, 6.0f);
 			bike = new Bike(this, position);
@@ -132,8 +132,8 @@ public class BikeGame extends ActorGame {
 		    }
 		    else if (endOfGame = true)
 		    {
-		    	bike.getLeftWheel().relax();
-		    	bike.getRightWheel().relax();
+		    	bike.getLeftWheel().power(0.0f);
+		    	bike.getRightWheel().power(0.0f);
 		    	
 			    if (this.getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
 			    {

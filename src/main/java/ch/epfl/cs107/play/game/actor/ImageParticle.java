@@ -1,5 +1,6 @@
 package ch.epfl.cs107.play.game.actor;
 
+import ch.epfl.cs107.play.game.actor.general.Particle;
 import ch.epfl.cs107.play.math.Attachable;
 import ch.epfl.cs107.play.math.Node;
 import ch.epfl.cs107.play.math.Transform;
@@ -10,7 +11,7 @@ import ch.epfl.cs107.play.window.Image;
 /**
  * Contains information to render a single image, which can be attached to any positionable.
  */
-public class ImageParticle extends Node implements  Graphics {
+public class ImageParticle extends Particle implements Graphics {
 
     private String name;
     private float width;
@@ -144,5 +145,34 @@ public class ImageParticle extends Node implements  Graphics {
         Transform transform = Transform.I.translated(-anchor.x, -anchor.y).scaled(width, height).transformed(getTransform());
         canvas.drawImage(image, transform, alpha, depth);
     }
+
+	@Override
+	public Particle copy() {
+		return new ImageParticle(this.name, this.alpha, this.alpha, this.anchor, this.alpha, this.depth); //Prevents a reference copy from happening
+	}
+	
+	public void setVelocity(Vector velocity) {
+		super.setVelocity(velocity);
+	}
+	
+	public void setAcceleration(Vector acceleration) {
+		super.setAcceleration(acceleration);
+	}
+	
+	public void setPosition(Vector position) {
+		super.setPosition(position);
+	}
+	
+	public void setAngularVelocity(float angularVelocity) {
+		super.setAngularVelocity(angularVelocity);
+	}
+	
+	public void setAngularPosition(float angularPosition) {
+		super.setAngularPosition(angularPosition);
+	}
+	
+	public void setAngularAcceleration(float angularAcceleration) {
+		super.setAngularAcceleration(angularAcceleration);
+	}
 
 }

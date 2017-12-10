@@ -1,7 +1,11 @@
 package ch.epfl.cs107.play.game.actor.general;
 
 import java.awt.Color;
-import ch.epfl.cs107.play.game.actor.*;
+
+import ch.epfl.cs107.play.game.actor.Actor;
+import ch.epfl.cs107.play.game.actor.ActorGame;
+import ch.epfl.cs107.play.game.actor.GameEntity;
+import ch.epfl.cs107.play.game.actor.ShapeGraphics;
 import ch.epfl.cs107.play.math.Circle;
 import ch.epfl.cs107.play.math.Contact;
 import ch.epfl.cs107.play.math.ContactListener;
@@ -37,8 +41,8 @@ public class Bike extends GameEntity implements Actor {
 		partBuilder.setGhost(true);
 		partBuilder.build();
 		
-//		graphics = new ImageGraphics("billy.png", 6.0f, 4.0f);
-//		graphics.setParent(this);
+//		billyGraphics = new ImageGraphics("billy.png", 6.0f, 4.0f);
+//		billyGraphics.setParent(this);
 		
 		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f);
 		rightWheel = new Wheel(getOwner(), false, position.add(1.0f, 0.f), 0.5f);
@@ -52,13 +56,13 @@ public class Bike extends GameEntity implements Actor {
 
 	@Override
 	public void draw(Canvas canvas) {
-		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.0f, 0.3f)));
+		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.07f, 0.3f)));
 		headGraphics = new ShapeGraphics(head, Color.WHITE, Color.WHITE, 0.02f);
 		headGraphics.setParent(this);
 		
 //		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
 //		billyGraphics.setParent(this);
-//	
+	
 		
 		
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
@@ -77,24 +81,39 @@ public class Bike extends GameEntity implements Actor {
 		rightLegGraphics = new ShapeGraphics(rightLeg, Color.WHITE, Color.WHITE, 0.1f);
 		rightLegGraphics.setParent(this);
 		
-		if (armsUp) 
-		{	
-			Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
-			leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
-			Polyline rightHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
-			rightHandGraphics = new ShapeGraphics(rightHandUp, Color.WHITE, Color.WHITE, 0.1f);
-			leftHandGraphics.setParent(this);
-			rightHandGraphics.setParent(this);
-			leftHandGraphics.draw(canvas);
-			rightHandGraphics.draw(canvas);
-		}
-		else
-		{
-			Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
-			armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
-			armGraphics.setParent(this);
-			armGraphics.draw(canvas);			
-		}	
+		if (armsUp){
+			
+			if(sight) {
+				Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
+				leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
+				Polyline rightHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
+				rightHandGraphics = new ShapeGraphics(rightHandUp, Color.WHITE, Color.WHITE, 0.1f);
+				leftHandGraphics.setParent(this);
+				rightHandGraphics.setParent(this);
+				leftHandGraphics.draw(canvas);
+				rightHandGraphics.draw(canvas);
+			}
+			else
+			{
+				Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(-0.8f, 2.0f));
+				leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
+				Polyline rightHandUp = new Polyline(getShoulderLocation(), new Vector(-0.8f, 2.0f));
+				rightHandGraphics = new ShapeGraphics(rightHandUp, Color.WHITE, Color.WHITE, 0.1f);
+				leftHandGraphics.setParent(this);
+				rightHandGraphics.setParent(this);
+				leftHandGraphics.draw(canvas);
+				rightHandGraphics.draw(canvas);
+			}
+			}
+			else
+			{
+				Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
+				armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
+				armGraphics.setParent(this);
+				armGraphics.draw(canvas);	
+			}	
+
+
 		
 
 		leftWheel.draw(canvas);
