@@ -7,6 +7,7 @@ import ch.epfl.cs107.play.game.actor.Level;
 import ch.epfl.cs107.play.game.actor.general.Bascule;
 import ch.epfl.cs107.play.game.actor.general.Bike;
 import ch.epfl.cs107.play.game.actor.general.Crate;
+import ch.epfl.cs107.play.game.actor.general.Emitter;
 import ch.epfl.cs107.play.game.actor.general.Finish;
 import ch.epfl.cs107.play.game.actor.general.Pendule;
 import ch.epfl.cs107.play.game.actor.general.Terrain;
@@ -85,6 +86,12 @@ public class CrazyEpicGameLevel extends Level {
 
 	@Override
 	public Pendule getPendule() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Emitter getEmitter() {
 		// TODO Auto-generated method stub
 		return null;
 	}

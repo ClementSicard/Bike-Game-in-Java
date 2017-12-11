@@ -23,6 +23,10 @@ public class BikeGameCopie extends ActorGame {
     private Finish flag;
     private Bascule bascule;
     private Pendule pendule;
+    private Emitter emitter;
+    private float timeFinalMessage = 0.f;
+    private float time = 0.f;
+    private float alpha = 1.5f;
     
 	
 	@Override
@@ -32,7 +36,7 @@ public class BikeGameCopie extends ActorGame {
 		
 		levelList = createLevelList();
 		//createText();
-		startGame(level);
+		startLevel(level);
 		
 		return true;
 
@@ -48,7 +52,17 @@ public class BikeGameCopie extends ActorGame {
 	        terrain = level1.getTerrain();
 	        bascule = level1.getBascule();
 	        pendule = level1.getPendule();
+//	        emitter = level1.getEmitter();
 	        setViewCandidate(bike);
+	        
+	        if (level <= levelList.size() - 1 && time <= 1.5f && level !=0)
+	        {
+	        	level1.createText(getCanvas(), alpha);
+	        	time += deltaTime;
+	        	alpha -= deltaTime;
+	        }
+	        
+//	        if ()
 	        
 	        if (bike.getHit() && endOfGame != true) 
 	        {
@@ -142,13 +156,15 @@ public class BikeGameCopie extends ActorGame {
 			    	bike.setHit(false);
 			    	level++;
 			    	
-			    	if (level <= levelList.size() - 1)
+			    	if (level < levelList.size())
 			    	{
-			    		startGame(level);
+			    		startLevel(level);
 			    	}
-			    	else
-			    	{
-			    		displayFinalMessage();
+			    	if (level >= levelList.size())
+			    	{		
+		    			level++;
+		    			level %= levelList.size()-1;
+		    			startLevel(level);
 			    	}
 			    }
 		}
@@ -180,7 +196,7 @@ public class BikeGameCopie extends ActorGame {
 	    			
 	    }
 	    
-	    public void startGame(int a) {
+	    public void startLevel(int a) {
 	      	levelList.get(a).createAllActors();
 	    }
 	    

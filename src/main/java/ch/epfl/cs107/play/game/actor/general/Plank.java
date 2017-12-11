@@ -31,7 +31,7 @@ public class Plank extends GameEntity implements Actor {
 		 	plankBuilder.setShape(plank);
 		 	plankBuilder.setFriction(0.5f);
 		 	plankBuilder.build();
-		 	plankGraphics = new ImageGraphics("wood.3.png", width, height);
+		 	plankGraphics = new ImageGraphics("metal.3.png", width, height);
 		 	plankGraphics.setDepth(0.5f);
 		 	plankGraphics.setParent(this);
 		 	getOwner().addActor(this);

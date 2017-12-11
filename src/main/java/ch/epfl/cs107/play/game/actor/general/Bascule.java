@@ -15,11 +15,11 @@ public class Bascule extends GameEntity implements Actor {
 	private RevoluteConstraintBuilder revoluteConstraintBuilder;
 	private RevoluteConstraint constraint;
 	
-	public Bascule (ActorGame game, boolean fixed, Vector position) {
+	public Bascule (ActorGame game, boolean fixed, Vector position, float ballRadius) {
 		super(game, fixed, position);
-		ball = new Ball (game, false, new Vector(2.0f, 2.0f), 0.5f);
+		ball = new Ball (game, false, new Vector(2.0f, 2.0f), ballRadius);
 		plank = new Plank (game, false, new Vector(-4.0f, 2.0f), 1.0f, 0.2f, 5.0f);
-		revoluteConstraintBuilder = getOwner().createRevoluteConstraintBuilder () ;
+		revoluteConstraintBuilder = getOwner().createRevoluteConstraintBuilder();
 		revoluteConstraintBuilder.setFirstEntity(ball.getEntity());
   		revoluteConstraintBuilder.setFirstAnchor(new Vector(0.5f, 0.5f));
   		revoluteConstraintBuilder.setSecondEntity(plank.getEntity());

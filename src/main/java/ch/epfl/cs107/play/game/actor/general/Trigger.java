@@ -31,7 +31,7 @@ abstract public class Trigger {
 		entityBuilder.setPosition(position);
         entity = entityBuilder.build();
         
-		partBuilder = getTriggerEntity().createPartBuilder();
+		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon ( 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 100.0f, 0.0f, 100.0f );
 		
 		partBuilder.setShape(polygon);
@@ -41,7 +41,7 @@ abstract public class Trigger {
 		}
 		
 		catch (NullPointerException z) {
-			System.out.println("Paramètre(s) Nul(s)");
+			System.out.println("Parameters are null");
 		}
 		
 		//finishGraphics = new ShapeGraphics(polygon, Color.WHITE, Color.BLUE, 1f);
@@ -52,15 +52,15 @@ abstract public class Trigger {
 		
 		finishListener = new BasicContactListener();
 		
-		this.getTriggerEntity().addContactListener(finishListener);
+		this.getEntity().addContactListener(finishListener);
         
 	}
 	
-	protected Entity getTriggerEntity() {
+	protected Entity getEntity() {
 		return entity;
 	}
 	
-	protected ActorGame getTriggerOwner() {
+	protected ActorGame getOwner() {
 		return game;
 	}
 	
@@ -69,13 +69,11 @@ abstract public class Trigger {
 	}
 	
 	public Transform getTransform() {
-		// TODO Auto-generated method stub
-		return getTriggerEntity().getTransform();  
+		return getEntity().getTransform();  
 	}
 	
 	public Vector getVelocity() {
-		// TODO Auto-generated method stub
-		return getTriggerEntity().getVelocity();
+		return getEntity().getVelocity();
 	}
 	
 	

@@ -1,5 +1,7 @@
 package ch.epfl.cs107.play.game.actor.general;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.actor.Graphics;
 import ch.epfl.cs107.play.math.Positionable;
 import ch.epfl.cs107.play.math.Transform;
@@ -16,9 +18,8 @@ public abstract class Particle implements Graphics, Positionable {
 		private float angularVelocity;
 		private float angularAcceleration;
 		
-		public void draw(Canvas canvas) {
-			
-		}
+		
+		public void draw(Canvas canvas) {}
 		
 		public abstract Particle copy();
 		

@@ -23,7 +23,7 @@ public class BasicBikeGameLevel extends Level implements Actor {
 	protected Finish flag;
 	protected Terrain terrain;
 	protected ActorGame game;
-	protected Emitter emitter;
+//	protected Emitter emitter;
 	protected Bascule bascule; 
 	protected Pendule pendule;
 	
@@ -45,7 +45,7 @@ public class BasicBikeGameLevel extends Level implements Actor {
 				50.0f, -5.0f,
 				55.0f, -4.0f,
 				65.0f, 0.0f,
-				6500.0f, -1000.0f), Color.CYAN, Color.WHITE);
+				6500.0f, -1000.0f), Color.CYAN, Color.BLACK);
 		bike = new Bike(game, new Vector(-5.0f, 10.0f)); 
 		flag = new Finish(game, new Vector(50.0f, -4.0f));
 		Polygon polygon = new Polygon (
@@ -54,14 +54,15 @@ public class BasicBikeGameLevel extends Level implements Actor {
 				new Vector(3.0f, 3.0f),
 				new Vector(3.0f, 0.0f)
 				);
-		bascule = new Bascule(game, false, new Vector(2.0f, 2.0f));
+		bascule = new Bascule(game, false, new Vector(2.0f, 2.0f), 0.3f);
 		pendule = new Pendule(game, false, new Vector(8.0f , 8.0f));
-		//emitter = new Emitter(game.getCanvas(), polygon, "fart03.png", 1.0f, 1.0f, new Vector(5.0f, -1.0f), 1.0f, 0.0f);
+	//	emitter = new Emitter(game, true, new Vector(5.0f, 5.0f), polygon, "fart03.png", 1.0f, 1.0f, new Vector(5.0f, -1.0f), 1.0f, 0.0f);
 		game.addActor(terrain);
 		game.addActor(bike);
 		game.addActor(flag);
 		game.addActor(bascule);
 		game.addActor(pendule);
+//		game.addActor(emitter);
 	}
 
 	public void draw(Canvas canvas) {}
@@ -93,5 +94,11 @@ public class BasicBikeGameLevel extends Level implements Actor {
 	public Pendule getPendule() {
 		// TODO Auto-generated method stub
 		return pendule;
+	}
+
+	@Override
+	public Emitter getEmitter() {
+//		// TODO Auto-generated method stub
+		return null;
 	}
 }

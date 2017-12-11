@@ -98,7 +98,7 @@ public class BikeGame extends ActorGame {
 		    if (endOfGame != true)
 		    {		
 		        if ((this.getKeyboard().get(KeyEvent.VK_UP).isDown())) {
-		        	if (bike.getSight())
+		        	if (bike.getOrientation())
 		        	{
 		        		bike.goRight();
 		        	}
@@ -117,7 +117,7 @@ public class BikeGame extends ActorGame {
 					}
 			        
 			        if ((this.getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
-						bike.changeSight();
+						bike.changeOrientation();
 					}
 			        
 			        if ((this.getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 

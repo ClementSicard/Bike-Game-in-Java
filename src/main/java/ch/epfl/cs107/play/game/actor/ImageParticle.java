@@ -1,8 +1,8 @@
 package ch.epfl.cs107.play.game.actor;
 
+import java.util.List;
+
 import ch.epfl.cs107.play.game.actor.general.Particle;
-import ch.epfl.cs107.play.math.Attachable;
-import ch.epfl.cs107.play.math.Node;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
@@ -19,6 +19,7 @@ public class ImageParticle extends Particle implements Graphics {
     private Vector anchor;
     private float alpha;
     private float depth;
+    private List<Particle> list;
 
     /**
      * Creates a new image graphics.
@@ -29,6 +30,7 @@ public class ImageParticle extends Particle implements Graphics {
      * @param alpha transparency, between 0 (invisible) and 1 (opaque)
      * @param depth render priority, lower-values drawn first
      */
+    
     public ImageParticle(String name, float width, float height, Vector anchor, float alpha, float depth) {
         this.name = name;
         this.width = width;
@@ -174,5 +176,4 @@ public class ImageParticle extends Particle implements Graphics {
 	public void setAngularAcceleration(float angularAcceleration) {
 		super.setAngularAcceleration(angularAcceleration);
 	}
-
 }
