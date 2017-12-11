@@ -4,9 +4,12 @@ import java.awt.Color;
 
 import ch.epfl.cs107.play.game.actor.general.Bascule;
 import ch.epfl.cs107.play.game.actor.general.Bike;
+import ch.epfl.cs107.play.game.actor.general.Checkpoint;
+import ch.epfl.cs107.play.game.actor.general.Collectable;
 import ch.epfl.cs107.play.game.actor.general.Crate;
 import ch.epfl.cs107.play.game.actor.general.Emitter;
 import ch.epfl.cs107.play.game.actor.general.Finish;
+import ch.epfl.cs107.play.game.actor.general.Nuage;
 import ch.epfl.cs107.play.game.actor.general.Pendule;
 import ch.epfl.cs107.play.game.actor.general.Terrain;
 import ch.epfl.cs107.play.math.Node;
@@ -43,4 +46,10 @@ public abstract class Level extends Node implements Actor {
 	public abstract Pendule getPendule();
 
 	public abstract Emitter getEmitter();
+	
+	public abstract Checkpoint getCheckpoint();
+	
+	public abstract Collectable getCollectable();
+	
+	public abstract Nuage getNuage();
 }

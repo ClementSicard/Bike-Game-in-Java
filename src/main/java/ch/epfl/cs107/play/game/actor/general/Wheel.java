@@ -19,7 +19,7 @@ public class Wheel extends GameEntity implements Actor {
 	private WheelConstraint constraint;
 	private WheelConstraintBuilder constraintBuilder;
 
-	public Wheel(ActorGame game, boolean fixed, Vector position, float radius) {
+	public Wheel(ActorGame game, boolean fixed, Vector position, float radius, String image) {
 		super(game, fixed, position);
 		partBuilder = getEntity().createPartBuilder();
 		
@@ -28,7 +28,7 @@ public class Wheel extends GameEntity implements Actor {
 		partBuilder.setFriction(0.5f);
 		partBuilder.build();
 		
-		wheelGraphics = new ImageGraphics("wheel2.png", 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
+		wheelGraphics = new ImageGraphics(image, 2.0f*radius, 2.0f*radius, new Vector (0.5f, 0.5f), 0.5f, 0.5f);
 		wheelGraphics.setAlpha(1.0f);
 		wheelGraphics.setDepth(0.0f);
 		wheelGraphics.setParent(this);	

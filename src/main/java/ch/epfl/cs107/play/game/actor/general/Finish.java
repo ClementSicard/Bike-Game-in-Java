@@ -17,7 +17,7 @@ public class Finish extends GameEntity implements Actor {
 	private BasicContactListener listener;
 
 	
-	public Finish(ActorGame game, Vector position) {
+	public Finish(ActorGame game, Vector position, String image) {
 		super(game, true, position);
 		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon(
@@ -29,7 +29,7 @@ public class Finish extends GameEntity implements Actor {
 		partBuilder.setShape(polygon);
 		partBuilder.setGhost(true);
 		partBuilder.build();
-		graphics = new ImageGraphics("flag.blue.png", 1.2f, 1.2f);
+		graphics = new ImageGraphics(image, 1.f, 1.f);
 		graphics.setParent(this);
 		getOwner().addActor(this);
 		listener = new BasicContactListener();

@@ -12,37 +12,25 @@ public class TerrainGlissant extends GameEntity implements Actor {
 	private ShapeGraphics graphics;
 	
 	
-	public TerrainGlissant(ActorGame game, Color bord, Color fond) {
+	public TerrainGlissant(ActorGame game, Polyline polyline, Color bord, Color fond, float friction) {
 		super(game, true);
 		partBuilder = getEntity().createPartBuilder();
-		Polyline polyline = new Polyline(
-				-1000.0f, -1000.0f,
-				-1000.0f, 0.0f,
-				0.0f, 0.0f,
-				3.0f, 1.0f,
-				8.0f, 1.0f,
-				15.0f, 3.0f,
-				16.0f, 3.0f,
-				25.0f, 0.0f,
-				35.0f, -5.0f,
-				50.0f, -5.0f,
-				55.0f, -4.0f,
-				65.0f, 0.0f,
-				6500.0f, -1000.0f);
-		partBuilder.setFriction(0.4f);
+		partBuilder.setFriction(friction);
 		partBuilder.setShape(polyline);
 		partBuilder.build();
 		graphics = new ShapeGraphics(polyline, fond, bord, 0.2f, 1.0f, 0.0f);
 		graphics.setParent(this);
-		
-		//getOwner().addActor(this);
+		getOwner().addActor(this);
 	}
 
 
 	@Override
 	public void draw(Canvas canvas) {
 		graphics.draw(canvas);
-		
+	}
+	
+	public void destroy() {
+		getEntity().destroy();
 	}
 
 }

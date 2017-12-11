@@ -22,13 +22,12 @@ public class Bike extends GameEntity implements Actor {
 	private Wheel leftWheel, rightWheel;
 	private ShapeGraphics leftHandGraphics, rightHandGraphics, armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
 //	private ImageGraphics billyGraphics;
-	private boolean orientation = true;
+	private boolean orientation = true, hit, armsUp = false;
 	private final static float MAX_WHEEL_SPEED = 10.0f;
-	private boolean hit;
 	private ContactListener bikeListener;
-	private boolean armsUp = false;
+	private String image; //Allows to change the wheels depending on the levels
 	
-	public Bike(ActorGame game, Vector position) { //We consider that the bike is necessarily mobile
+	public Bike(ActorGame game, Vector position, String image) { //We consider that the bike is necessarily mobile
 		
 		super(game, false, position);
 		partBuilder = getEntity().createPartBuilder();
@@ -41,9 +40,8 @@ public class Bike extends GameEntity implements Actor {
 //		partBuilder.setGhost(true);
 		partBuilder.setGhost(false);
 		partBuilder.build();
-		
-		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f);
-		rightWheel = new Wheel(getOwner(), false, position.add(1.0f, 0.f), 0.5f);
+		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f, image);
+		rightWheel = new Wheel(getOwner(), false, position.add(1.0f, 0.f), 0.5f, image);
 		leftWheel.attach(getEntity(), new Vector(-1.0f, 0.0f), new Vector(-0.5f, -1.0f));
 		rightWheel.attach(getEntity(), new Vector(1.0f, 0.0f), new Vector(0.5f, -1.0f));
 		getOwner().addActor(leftWheel);

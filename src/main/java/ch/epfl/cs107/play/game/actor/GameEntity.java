@@ -4,8 +4,6 @@ import ch.epfl.cs107.play.math.Entity;
 import ch.epfl.cs107.play.math.EntityBuilder;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
-import ch.epfl.cs107.play.math.WheelConstraintBuilder;
-import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.window.Window;
 
 public abstract class GameEntity {
@@ -17,61 +15,64 @@ public abstract class GameEntity {
 	public GameEntity(ActorGame game, boolean fixed, Vector position) {
 
 		try {
-		if (game == null || position == null) {
-		throw new NullPointerException();
-		}
-		this.game = game;
-		builder = this.game.createEntityBuilder();
-		builder.setPosition(position);
-		builder.setFixed(fixed);
-		entity = builder.build();
+			if (game == null || position == null) 
+			{
+				throw new NullPointerException();
+			}
+			this.game = game;
+			builder = this.game.createEntityBuilder();
+			builder.setPosition(position);
+			builder.setFixed(fixed);
+			entity = builder.build();
 		}
 		catch (NullPointerException a) {
 		System.out.println("Parameters are equal to zero");
 		}
-		}
+	}
 
-		public GameEntity(ActorGame game, boolean fixed) {
+	public GameEntity(ActorGame game, boolean fixed) {
 		try {
-		if (game == null) {
-		throw new NullPointerException();
-		}
-		this.game = game;
-		builder = this.game.createEntityBuilder();
-		builder.setFixed(fixed);
-		 
-		entity = builder.build();
+			if (game == null) 
+			{
+				throw new NullPointerException();
+			}
+			this.game = game;
+			builder = this.game.createEntityBuilder();
+			builder.setFixed(fixed);
+			 
+			entity = builder.build();
 
 		}
 		 
-		catch (NullPointerException a) {
-		System.out.println("The parameter is equal to zero");
+		catch (NullPointerException exception) 
+		{
+			System.out.println("The parameter is equal to zero");
 		}
-		}
+	}
 
 		public void destroy() {
-		getEntity().destroy();
+			getEntity().destroy();
 		}
 
 		public Entity getEntity() {
-		return entity;
+			return entity;
 		}
 
 		protected ActorGame getOwner() {
-		return game;
+			return game;
 		}
 
 		public Transform getTransform() {
-		return getEntity().getTransform(); 
+			return getEntity().getTransform(); 
 		}
 
 		public Vector getVelocity() { 
-		return getEntity().getVelocity();
+			return getEntity().getVelocity();
 		}
 
 		public Window getWindow() {
-		return game.getWindow();
+			return game.getWindow();
 		}
 
-		}
+	}
 
