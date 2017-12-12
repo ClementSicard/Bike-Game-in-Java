@@ -25,6 +25,7 @@ public class CrazyEpicGameLevel extends Level {
 	private Terrain terrain;
 	private ActorGame game;
 	private Pendule pendule;
+	private Collectable coin1, coin2;
 	
 	public CrazyEpicGameLevel(ActorGame game) {
 		this.game = game;
@@ -46,7 +47,9 @@ public class CrazyEpicGameLevel extends Level {
 				65.0f, 0.0f,
 				6500.0f, -1000.0f), Color.GREEN, Color.WHITE);
 		bike = new Bike(game, new Vector(-5.0f, 10.0f), "wheel2.png"); 
-		flag = new Finish(game, new Vector(75.0f, -4.0f), "flag.green.png");	
+		flag = new Finish(game, new Vector(55.0f, -4.0f), "flag.green.png");	
+		pendule = new Pendule(game, new Vector(25.0f, -3.0f));
+		
 		game.addActor(terrain);
 		game.addActor(bike);
 		game.addActor(flag);
@@ -117,6 +120,4 @@ public class CrazyEpicGameLevel extends Level {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

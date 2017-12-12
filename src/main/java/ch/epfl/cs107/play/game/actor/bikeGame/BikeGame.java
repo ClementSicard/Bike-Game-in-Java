@@ -25,16 +25,14 @@ public class BikeGame extends ActorGame {
     private Bascule bascule;
     private Pendule pendule;
     private Collectable collectable;
-    private Checkpoint checkpoint;
     private TextGraphics scoreText;
     private int score = 0;
-    private float time = 0.f, alpha = 1.5f, FMtimer = 10.0f;
+    private float time = 0.f, alpha = 1.5f;
     
 	
 	@Override
 	public boolean begin(Window window, FileSystem fileSystem) {
 		super.begin(window, fileSystem);
-		
 		
 		levelList = createLevelList();
 		startLevel(level);
@@ -47,19 +45,13 @@ public class BikeGame extends ActorGame {
 	public void update(float deltaTime) {
 		 super.update(deltaTime); //Calling the update() method from the super-class
 	        
-		 	scoreText = new TextGraphics("Score : " + score , 0.1f, Color.WHITE, Color.WHITE, 0.01f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
-	    	scoreText.setParent(getCanvas());
-	    	scoreText.setRelativeTransform(Transform.I.translated(0.0f, 1.0f));
+		 	scoreText = new TextGraphics("Score : " + score , 0.3f, Color.WHITE, Color.WHITE, 0.01f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		 	scoreText.setParent(getCanvas());
+	    	scoreText.setRelativeTransform(Transform.I.translated(0.0f, 0.0f));
 	    	scoreText.draw(getCanvas());
 	    	
+	    	displayNextLevel(deltaTime);
 	    	
-	    	 if (level <= levelList.size() - 1 && time <= 1.5f && level !=0)
-		        {
-		        	level1.createText(getCanvas(), alpha);
-		        	time += deltaTime;
-		        	alpha -= deltaTime;
-		        }
-	    	 
 		    if (collectable != null)
 		    {
 		    	if (collectable.getListener().hasContactWith(bike.getEntity()))
@@ -73,8 +65,7 @@ public class BikeGame extends ActorGame {
 	        {
 	        	bike.destroy();
 	        	displayGO = true;
-		        endOfGame = true;
-		        
+		        endOfGame = true; 
 	        }
 	        else if (bike.getHit() && flag.getListener().hasContactWith(bike.getEntity()))
 	        {
@@ -83,9 +74,15 @@ public class BikeGame extends ActorGame {
 	        
 	        if (flag.getListener().hasContactWith(bike.getEntity()) && endOfGame != true)
 	        {
-	        	displayWD = true;
+	        	if (level != levelList.size()-1)
+	        	{
+		        	displayWD = true;
+	        	}
+	        	if (level == levelList.size() - 1)
+	        	{
+	        		displayFM = true;
+	        	}
 	        	endOfGame = true;
-
 		        bike.getRightWheel().power(0.0f);
 		        bike.getLeftWheel().power(0.0f);
 	        }
@@ -128,9 +125,13 @@ public class BikeGame extends ActorGame {
 						
 					}
 			        
-			        if ((this.getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) {
+			        if ((this.getKeyboard().get(KeyEvent.VK_SHIFT).isPressed())) {
 						bike.changeOrientation();
 					}
+			        
+			        if ((this.getKeyboard().get(KeyEvent.VK_SPACE).isPressed())) { //Makes the bike jump
+			        	bike.getEntity().applyImpulse(new Vector(4.0f, 15.0f), bike.getEntity().getPosition());
+	        		}
 			        
 			        if ((this.getKeyboard().get(KeyEvent.VK_LEFT).isDown())) 
 			        {
@@ -147,42 +148,40 @@ public class BikeGame extends ActorGame {
 		    	bike.getLeftWheel().power(0.0f);
 		    	bike.getRightWheel().power(0.0f);
 		    	
-			    if (this.getKeyboard().get(KeyEvent.VK_R).isPressed()) //When [R] is pressed, the game starts over
+			    if (this.getKeyboard().get(KeyEvent.VK_R).isPressed() && endOfGame == true) //When [R] is pressed, the game starts over
 			    {
-			    	reset();
-			    	startLevel(level);
+			    	 removeAllActors();
+			    	 endOfGame = false;
+			    	 displayWD = false;
+			    	 displayGO = false;
+			    	 displayFM = false;
+			    	 bike.setHit(false);
+			    	 startOver(this, deltaTime);
 			    }
-			    else if (this.getKeyboard().get(KeyEvent.VK_ENTER).isPressed() && displayWD)
+			    if (this.getKeyboard().get(KeyEvent.VK_ENTER).isPressed() && (displayWD || displayFM))
 			    {
+			    	destroyAllEntities();
+			    	removeAllActors();
 			    	reset();
 			    	level++;
 			    	
-			    	if(level <= levelList.size() -1)
+			    	if(level < levelList.size() - 1)
 			    	{
-			    		startLevel(level);
+			    		startOver(this, deltaTime);
 			    	}
-			    	else if (level == levelList.size() )
+			    	else if (level == levelList.size() -1 )
 			    	{
-			    		displayFM = true;
 			    		level %= levelList.size();
 			    		
-			    		if (FMtimer > 0.f)
-			    		{
-			    			FMtimer -= deltaTime;
-			    		}
-			    		else if (FMtimer <= 0 || this.getKeyboard().get(KeyEvent.VK_ENTER).isPressed())
-			    		{
+			    		
 			    			reset();
-			    			startLevel(level);
+			    			startOver(this, deltaTime);
 			    		}
 			    	}
 			    }
 		    }
-}
 
-
-
-
+	
 
 		// This event is raised after game ends, to release additional resources
 	    @Override
@@ -224,7 +223,6 @@ public class BikeGame extends ActorGame {
 	        bascule = level1.getBascule();
 	        pendule = level1.getPendule();
 	        collectable = level1.getCollectable();
-	        checkpoint = level1.getCheckpoint();
 	        setViewCandidate(bike);
 	    }
 	    
@@ -235,5 +233,14 @@ public class BikeGame extends ActorGame {
 	    	displayWD = false;
 	    	displayFM = false;
 	    	bike.setHit(false);
+	    }
+	    
+	    public void displayNextLevel(float deltaTime) {
+	    	 if (level <= levelList.size() - 1 && time <= 1.5f && level !=0)
+	        {
+	        	level1.createText(getCanvas(), alpha);
+	        	time += deltaTime;
+	        	alpha -= deltaTime;
+	        }
 	    }
 }

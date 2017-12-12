@@ -197,9 +197,14 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayFinalMessage() {
-		message = new TextGraphics("CONGRATS ! YOU FINISHED THE GAME", 0.25f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("CONGRATS !", 0.15f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.0f));
+    	message.draw(getCanvas());
+    	
+    	message = new TextGraphics("YOU FINISHED THE GAME !", 0.15f, Color.GREEN, Color.WHITE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	message.draw(getCanvas());
 	}
 	

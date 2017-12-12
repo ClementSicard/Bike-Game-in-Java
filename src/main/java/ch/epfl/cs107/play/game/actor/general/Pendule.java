@@ -24,8 +24,8 @@ public class Pendule extends GameEntity implements Actor {
 	private RopeConstraint constraint;
 	private ShapeGraphics graphics;
 	
-	public Pendule(ActorGame game, boolean fixed, Vector position) {
-		super(game, fixed, position);
+	public Pendule(ActorGame game, Vector position) {
+		super(game, true, position);
 		ball = new Ball(game, false, position.add(-4.0f, 0.0f), 0.5f);
 		crate = new Crate(game, true, position, 5.0f, 1.0f, 1.0f);
 		builder = getOwner().createRopeConstraintBuilder(); 
@@ -48,7 +48,7 @@ public class Pendule extends GameEntity implements Actor {
 		crate.draw(canvas);
 		//The following lines allow the rope between the crate and the ball to be drawn, using the position of each entity
 		Polyline polyline= new Polyline(ball.getEntity().getPosition(), crate.getEntity().getPosition().add(0.5f, 0.5f));
-		graphics = new ShapeGraphics(polyline, Color.WHITE, Color.WHITE, 0.1f);
+		graphics = new ShapeGraphics(polyline, Color.WHITE, Color.WHITE, 0.05f);
 		graphics.setDepth(0.0f);
 		graphics.draw(canvas);
 		

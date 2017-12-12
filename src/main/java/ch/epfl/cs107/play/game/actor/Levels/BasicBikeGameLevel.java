@@ -40,10 +40,10 @@ public class BasicBikeGameLevel extends Level implements Actor {
 				-1000.0f, -1000.0f,
 				-1000.0f, 0.0f,
 				0.0f, 0.0f,
-				3.0f, 1.0f,
-				8.0f, 1.0f,
-				15.0f, 3.0f,
-				16.0f, 3.0f,
+				3.0f, -1.0f,
+				8.0f, -1.0f,
+				15.0f, -3.0f,
+				16.0f, -3.0f,
 				25.0f, 0.0f,
 				35.0f, -5.0f,
 				50.0f, -5.0f,
@@ -51,17 +51,17 @@ public class BasicBikeGameLevel extends Level implements Actor {
 				65.0f, 0.0f,
 				6500.0f, -1000.0f), Color.CYAN, Color.WHITE);
 		bike = new Bike(game, new Vector(-5.0f, 10.0f), "wheel.png"); 
-		flag = new Finish(game, new Vector(50.0f, -4.0f), "flag.blue.png");
+		flag = new Finish(game, new Vector(50.0f, -5.0f), "flag.blue.png");
 		Polygon polygon = new Polygon (
 				new Vector(0.0f, 0.0f),
 				new Vector(0.0f, 3.0f),
 				new Vector(3.0f, 3.0f),
 				new Vector(3.0f, 0.0f)
 				);
-		bascule = new Bascule(game, false, new Vector(2.0f, 1.0f), 0.3f);
-		pendule = new Pendule(game, false, new Vector(8.0f , 7.0f));
-		collectable = new Collectable(game, true, new Vector(2.0f, 2.0f), "coin.diamond.png", 0.7f, 0.7f);
-		checkpoint = new Checkpoint(game, true, new Vector(25.0f, 2.0f), "flag.red.png", 1.0f, 1.0f);
+		bascule = new Bascule(game, false, new Vector(2.f, -1.0f), 0.3f);
+		pendule = new Pendule(game, new Vector(8.0f , 7.0f));
+		collectable = new Collectable(game, true, new Vector(-4.0f, 2.0f), "coin.diamond.png", 0.7f, 0.7f);
+		checkpoint = new Checkpoint(game, true, new Vector(25.0f, 0.0f), "flag.red.png", 1.0f, 1.0f);
 		game.addActor(terrain);
 		game.addActor(bike);
 		game.addActor(flag);
@@ -122,5 +122,4 @@ public class BasicBikeGameLevel extends Level implements Actor {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

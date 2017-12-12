@@ -32,6 +32,14 @@ public abstract class Level extends Node implements Actor {
     	graphics.setAlpha(alpha);
     	graphics.draw(canvas);
 	}
+	
+	public void createText2(Canvas canvas, float alpha) {
+		graphics = new TextGraphics("CHECKPOINT !", 0.17f, Color.WHITE, Color.RED, 0.09f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		graphics.setParent(canvas);
+		graphics.setRelativeTransform(Transform.I.translated(0.1f, -1.0f));
+		graphics.setAlpha(alpha);
+		graphics.draw(canvas);
+	}
 
 	public abstract Bike getBike();
 	
