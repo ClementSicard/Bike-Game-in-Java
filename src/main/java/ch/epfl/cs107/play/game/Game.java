@@ -9,7 +9,7 @@ import ch.epfl.cs107.play.window.Window;
 public interface Game {
     
 	/**
-     * Initialises game state.
+     * Initializes game state.
      * @param window context to use, not null
      * @param fileSystem file system to use, not null
      * @return whether the game was successfully started
@@ -22,7 +22,7 @@ public interface Game {
      */
     public abstract void update(float deltaTime);
     
-    /** Cleans up things, called even if initialisation failed. */
+    /** Cleans up things, called even if initialization failed. */
     public abstract void end();
     
 }

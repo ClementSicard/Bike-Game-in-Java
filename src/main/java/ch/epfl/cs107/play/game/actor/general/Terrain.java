@@ -11,7 +11,7 @@ public class Terrain extends GameEntity implements Actor {
 	private PartBuilder partBuilder;
 	private ShapeGraphics graphics;
 	
-	
+	//Creates a floor depending on the polyline plugged into the constructor
 	public Terrain(ActorGame game, Polyline polyline, Color bord, Color fond) {
 		super(game, true);
 		partBuilder = getEntity().createPartBuilder();

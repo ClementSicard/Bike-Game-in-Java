@@ -34,7 +34,7 @@ public class Wheel extends GameEntity implements Actor {
 		wheelGraphics.setParent(this);	
 	}
 
-	
+	//Creates a constraint between the current instance when called and another entity 
 	public void attach(Entity vehicle, Vector anchor, Vector axis) {
 		constraintBuilder = getOwner().createWheelConstraintBuilder(); 
 		constraintBuilder.setFirstEntity(vehicle);
@@ -59,18 +59,18 @@ public class Wheel extends GameEntity implements Actor {
 	}
 	
 	
+	//Destroys the aforementioned constraint 
 	public void detach() {
 		constraint.destroy();
 	}
 	
-	public float getSpeed() {
+	public float getSpeed() { //Returns the speed of the wheel at the moment the method is called
 		float difference = getEntity().getAngularVelocity() - getEntity().getVelocity().getLength();
 		return difference;
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
-	
 		wheelGraphics.draw(canvas);
 	}
 	

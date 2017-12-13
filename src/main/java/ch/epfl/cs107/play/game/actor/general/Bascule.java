@@ -17,9 +17,10 @@ public class Bascule extends GameEntity implements Actor {
 	
 	public Bascule (ActorGame game, boolean fixed, Vector position, float ballRadius) {
 		super(game, fixed, position);
+		//Instances the objects needed for the creation
 		ball = new Ball (game, true, position.add(1.f, 1.5f), ballRadius);
 		plank = new Plank (game, false, position.add(-2.0f, 3.0f), 1.0f, 0.2f, 5.0f);
-		revoluteConstraintBuilder = getOwner().createRevoluteConstraintBuilder();
+		revoluteConstraintBuilder = getOwner().createRevoluteConstraintBuilder(); //Uses the method from ActorGame to be able to use the attribute 'world'
 		revoluteConstraintBuilder.setFirstEntity(ball.getEntity());
   		revoluteConstraintBuilder.setFirstAnchor(new Vector(0.5f, 0.5f));
   		revoluteConstraintBuilder.setSecondEntity(plank.getEntity());
@@ -33,17 +34,20 @@ public class Bascule extends GameEntity implements Actor {
 
 	@Override
 	public void draw(Canvas canvas) {
+		//Has to draw both ball and plank
 		plank.draw(canvas);
 		ball.draw(canvas);
 	}
 	
 	public void destroy() {
+		//Deletes both plank and fixed ball
 		constraint.destroy();
 		ball.getEntity().destroy();
 		plank.getEntity().destroy();
 		this.getEntity().destroy();
 		getOwner().removeActor(ball);
 		getOwner().removeActor(plank);
+		getOwner().removeActor(this);
 	}
 }
 

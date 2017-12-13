@@ -12,6 +12,7 @@ public class Emitter extends GameEntity implements Actor {
 
 	private ImageParticle particle;
 	
+	//Used to draw Particles
 	public Emitter(ActorGame game, boolean fixed, Vector position, Shape shape, String image, float width, float height, Vector anchor, float alpha, float depth) {
 		super(game, fixed, position);
 		particle = new ImageParticle(image, width, height, anchor, alpha, depth);

@@ -11,7 +11,7 @@ public class TerrainGlissant extends GameEntity implements Actor {
 	private PartBuilder partBuilder;
 	private ShapeGraphics graphics;
 	
-	
+	//The friction can be modified; not the same class as 'Terrain' so that the instanciation is more understandable by the user
 	public TerrainGlissant(ActorGame game, Polyline polyline, Color bord, Color fond, float friction) {
 		super(game, true);
 		partBuilder = getEntity().createPartBuilder();

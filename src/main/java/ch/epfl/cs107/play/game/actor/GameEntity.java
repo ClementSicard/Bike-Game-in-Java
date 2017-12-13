@@ -12,6 +12,7 @@ public abstract class GameEntity {
 	private ActorGame game;
 	private EntityBuilder builder;
 	
+	//The class has 2 constructors, depending on if we want to give the entity a particular position (more often used)
 	public GameEntity(ActorGame game, boolean fixed, Vector position) {
 
 		try {
@@ -44,7 +45,7 @@ public abstract class GameEntity {
 
 		}
 		 
-		catch (NullPointerException exception) 
+		catch (NullPointerException exception)  //Handles the case in which there is an error caused by a NullPointer
 		{
 			System.out.println("The parameter is equal to zero");
 		}
@@ -54,6 +55,7 @@ public abstract class GameEntity {
 			getEntity().destroy();
 		}
 
+		//Following methods give the user everything she/he needs to create a level
 		public Entity getEntity() {
 			return entity;
 		}

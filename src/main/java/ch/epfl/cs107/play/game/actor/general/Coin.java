@@ -8,14 +8,14 @@ import ch.epfl.cs107.play.math.BasicContactListener;
 import ch.epfl.cs107.play.math.Vector;
 
 
-public class Collectable extends Trigger implements Actor {
+public class Coin extends Trigger implements Actor {
 
 	private ImageGraphics graphics;
 	private BasicContactListener listener;
 	
-	public Collectable(ActorGame game, boolean fixed, Vector position, String name, float width, float height) {
-		super(game, fixed, position, name, width, height);
-		graphics = new ImageGraphics(name, width, height);
+	public Coin(ActorGame game, boolean fixed, Vector position, float width, float height) {
+		super(game, fixed, position, width, height);
+		graphics = new ImageGraphics("coin.gold.png", width, height);
 		graphics.setParent(this); 
 		getOwner().addActor(this);
 		listener = new BasicContactListener();		

@@ -49,7 +49,7 @@ public abstract class ActorGame implements Game{
 		return window;
 	}
 	
-	
+	//Instances the game
 	public boolean begin(Window window, FileSystem fileSystem) {
 		this.window = window;
 		this.fileSystem = fileSystem;
@@ -62,7 +62,7 @@ public abstract class ActorGame implements Game{
 		return true;
 	}
 	
-	
+	//Updates the game and sets the camera parameters (called about 30 times per second)
 	public void update(float deltaTime) {
 		
 		world.update(deltaTime);
@@ -72,7 +72,7 @@ public abstract class ActorGame implements Game{
 			actor.update(deltaTime);
 		}
         
-     // Update expected viewport center
+		//Updates expected viewport center
         if (viewCandidate != null)
         {
 	        viewTarget = viewCandidate.getPosition().add(viewCandidate.getVelocity().mul(VIEW_TARGET_VELOCITY_COMPENSATION)) ;
@@ -86,6 +86,7 @@ public abstract class ActorGame implements Game{
         Transform.I.scaled(VIEW_SCALE).translated(viewCenter) ;
         window.setRelativeTransform(viewTransform) ;
         
+        //Draws the whole List of Actors
         for (Actor actor : listActors) {
         	actor.draw(window);
         }
@@ -99,6 +100,8 @@ public abstract class ActorGame implements Game{
 		this.viewCandidate = viewCandidate;
 	}
 	
+	
+	//Following methods are here to be called by instances of games or GameEntities to use the attribute world without implementing an explicit getter
 	public RopeConstraintBuilder createRopeConstraintBuilder() {
 		return world.createRopeConstraintBuilder(); 
 	}
@@ -123,7 +126,7 @@ public abstract class ActorGame implements Game{
 		for (int a = listActors.size() - 1; a >= 0; a--) 
 			
 			/*The array is explored from end to beginning
-			 *in* order to avoid a ConcurrentModificationException
+			 *in order to avoid a ConcurrentModificationException
 			 *when actors are removed from the game
 			 */
 		{
@@ -134,34 +137,28 @@ public abstract class ActorGame implements Game{
 		}
 	}
 	
+	//Clears the ArrayList in which Actors are stored
 	public void removeAllActors() {
 		listActors.clear();
 	}
 	
-	public void destroyAllEntities() { //Must be called before removeAllActors to prevent a misconduct
+	//MUST be called before removeAllActors to prevent an error from happening
+	public void destroyAllEntities() { 
 		for (int i = 0; i < listActors.size(); i++)
 		{
 			listActors.get(i).destroy();
 		}
 	}
-	
-	public boolean getSight() {
-		return sight;
-	}
 
 	public Window getWindow() {
-		// TODO Auto-generated method stub
 		return window;
 	}
 	
 	public Finish getFinish() {
 		return finish;
 	}
-	
-	public int getListActorsSize() {
-		return listActors.size();
-	}
-	
+
+	//Following methods display messages when called (their type is TextGraphics)
 	public void displayGameOver() {
 		message = new TextGraphics("GAME OVER", 0.3f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
@@ -185,13 +182,14 @@ public abstract class ActorGame implements Game{
 	}
 	
 	public void displayStartOverCommand() {
-		message = new TextGraphics("PRESS [R] TO START OVER", 0.1f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+		message = new TextGraphics("PRESS [R] TO RESTART", 0.1f, Color.WHITE, Color.BLACK, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	message.draw(getCanvas());
     	
 	}
 	
+	//Makes the game start over, when endOfGame is true and [R] is pressed once for instance
 	public void startOver(ActorGame game, float deltaTime) {
 		game.begin(this.window, this.fileSystem);
 	}
@@ -202,14 +200,23 @@ public abstract class ActorGame implements Game{
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.0f));
     	message.draw(getCanvas());
     	
-    	message = new TextGraphics("YOU FINISHED THE GAME !", 0.15f, Color.GREEN, Color.WHITE, 0.02f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message = new TextGraphics("YOU FINISHED THE GAME !", 0.15f, Color.GREEN, Color.WHITE, 0.06f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
     	message.setParent(getCanvas());
     	message.setRelativeTransform(Transform.I.translated(0.f, -1.3f));
     	message.draw(getCanvas());
+    	
+    	message = new TextGraphics("PRESS [1] - Level 1  [2] - Level 2  [ESC] - EXIT GAME", 0.05f, Color.BLACK, Color.BLACK, 0.01f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.f, -1.45f));
+    	message.draw(getCanvas());
+    	
+    	message = new TextGraphics("", 0.1f, Color.BLACK, Color.BLACK, 0.06f, true, false, new Vector(0.5f, 0.5f), 1.0f, 100.0f);
+    	message.setParent(getCanvas());
+    	message.setRelativeTransform(Transform.I.translated(0.f, -1.6f));
+    	message.draw(getCanvas());
 	}
-	
 		
-	
+	//Modularized method to clear both entities and actors at one called : simplifies code
 	public void clearAll() {
 		destroyAllEntities();
 		removeAllActors();

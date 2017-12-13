@@ -19,7 +19,7 @@ abstract public class Trigger {
 	private PartBuilder partBuilder;
 
 	
-	public Trigger(ActorGame game, boolean fixed, Vector position, String name, float width, float height) {
+	public Trigger(ActorGame game, boolean fixed, Vector position, float width, float height) {
 
 		try {
 			if (game == null || position == null) { throw new NullPointerException(); 

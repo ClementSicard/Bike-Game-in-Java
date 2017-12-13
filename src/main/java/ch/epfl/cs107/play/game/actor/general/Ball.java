@@ -30,7 +30,7 @@ import ch.epfl.cs107.play.window.Canvas;
 			 	ballGraphics.setParent(this);	 	
 			}
 			
-			public void setGraphicsParameters(ImageGraphics ballGraphics, float alpha, float depth) {
+			public void setGraphicsParameters(ImageGraphics ballGraphics, float alpha, float depth) { //If the user want to play with transparency or depth
 				ballGraphics.setAlpha(alpha);
 				ballGraphics.setDepth(depth);
 			}
@@ -40,9 +40,6 @@ import ch.epfl.cs107.play.window.Canvas;
 				ballGraphics.draw(canvas);
 			}
 			
-			public Ball getBall() {
-				return this;
-			}
 			
 			public void destroy() {
 				getEntity().destroy();

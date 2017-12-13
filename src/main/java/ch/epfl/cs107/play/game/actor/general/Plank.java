@@ -9,16 +9,14 @@ import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
-import ch.epfl.cs107.play.window.Window;
 
 public class Plank extends GameEntity implements Actor {
 
 	
 	private PartBuilder plankBuilder;
-	
 	private ImageGraphics plankGraphics;
 	
-	
+	//Not much to say about this class
 	public Plank (ActorGame game, boolean fixed, Vector position, float friction, float height, float width) {
 		super(game, fixed, position);
 

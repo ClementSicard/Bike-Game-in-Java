@@ -14,7 +14,7 @@ public class Finish extends GameEntity implements Actor {
 	
 	private PartBuilder partBuilder;
 	private ImageGraphics graphics;
-	private BasicContactListener listener;
+	private BasicContactListener listener; //Used to record contacts with other entities
 
 	
 	public Finish(ActorGame game, Vector position, String image) {

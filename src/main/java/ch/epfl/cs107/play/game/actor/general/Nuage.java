@@ -4,7 +4,6 @@ import ch.epfl.cs107.play.game.actor.ImageGraphics;
 import ch.epfl.cs107.play.game.actor.*;
 import ch.epfl.cs107.play.math.PartBuilder;
 import ch.epfl.cs107.play.math.Polygon;
-import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
 import ch.epfl.cs107.play.window.Canvas;
 
@@ -33,7 +32,6 @@ public class Nuage extends GameEntity implements Actor {
 	@Override
 	public void draw(Canvas canvas) {
 		graphics.draw(canvas);
-		graphics.setRelativeTransform(Transform.I.translated(0.f, -1.0f));
 	}
 	
 	public void destroy() {

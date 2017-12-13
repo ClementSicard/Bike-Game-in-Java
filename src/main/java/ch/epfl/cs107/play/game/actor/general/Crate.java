@@ -12,7 +12,7 @@ public class Crate extends GameEntity implements Actor {
 	private PartBuilder partBuilder;
 	private ImageGraphics graphics;
 	
-	
+	//Nothing important to say about this class
 	public Crate (ActorGame game, boolean fixed, Vector position, float friction, float height, float width) {
 		super(game, fixed, position);
 		partBuilder = getEntity().createPartBuilder();
@@ -44,6 +44,7 @@ public class Crate extends GameEntity implements Actor {
 		partBuilder.build();
 		graphics = new ImageGraphics("box.4.png", width, height);
 		graphics.setParent(this);
+		graphics.setDepth(0.5f);
 		getOwner().addActor(this);
 	}
 	

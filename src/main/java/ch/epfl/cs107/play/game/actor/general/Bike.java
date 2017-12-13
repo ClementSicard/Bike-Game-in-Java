@@ -20,15 +20,14 @@ public class Bike extends GameEntity implements Actor {
 	
 	private PartBuilder partBuilder;
 	private Wheel leftWheel, rightWheel;
+	//ShapeGraphics used to draw the biker
 	private ShapeGraphics leftHandGraphics, rightHandGraphics, armGraphics, headGraphics, rearGraphics, leftLegGraphics, rightLegGraphics, couisseGraphics, cadreGraphics;
-//	private ImageGraphics billyGraphics;
 	private boolean orientation = true, hit, armsUp = false;
 	private final static float MAX_WHEEL_SPEED = 10.0f;
 	private ContactListener bikeListener;
-	private String image; //Allows to change the wheels depending on the levels
 	
 	public Bike(ActorGame game, Vector position, String image) { //We consider that the bike is necessarily mobile
-		
+		//String parameter allows to change the wheels representation depending on the levels
 		super(game, false, position);
 		partBuilder = getEntity().createPartBuilder();
 		Polygon polygon = new Polygon(
@@ -37,7 +36,7 @@ public class Bike extends GameEntity implements Actor {
 				0.0f, 2.0f,
 				-0.5f, 1.0f);
 		partBuilder.setShape(polygon);
-//		partBuilder.setGhost(true);
+//		partBuilder.setGhost(true); //This parameter is no longer used
 		partBuilder.setGhost(false);
 		partBuilder.build();
 		leftWheel = new Wheel(getOwner(), false, position.add(-1.0f, 0.f), 0.5f, image);
@@ -52,12 +51,11 @@ public class Bike extends GameEntity implements Actor {
 
 	@Override
 	public void draw(Canvas canvas) {
+		
+		//All of these objects constitute parts of the biker
 		Circle head = new Circle(0.2f, getShoulderLocation().add(new Vector(0.07f, 0.3f)));
 		headGraphics = new ShapeGraphics(head, Color.WHITE, Color.WHITE, 0.02f);
 		headGraphics.setParent(this);
-		
-//		billyGraphics = new ImageGraphics("billy.png", 4.0f, 4.0f);
-//		billyGraphics.setParent(this);
 	
 		Polyline rear = new Polyline(getShoulderLocation(), getRearLocation());
 		rearGraphics = new ShapeGraphics(rear, Color.WHITE, Color.WHITE, 0.1f);
@@ -75,8 +73,8 @@ public class Bike extends GameEntity implements Actor {
 		rightLegGraphics = new ShapeGraphics(rightLeg, Color.WHITE, Color.WHITE, 0.1f);
 		rightLegGraphics.setParent(this);
 		
-		if (armsUp){
-			
+		if (armsUp)
+		{	
 			if(orientation) {
 				Polyline leftHandUp = new Polyline(getShoulderLocation(), new Vector(0.8f, 2.0f));
 				leftHandGraphics = new ShapeGraphics(leftHandUp, Color.WHITE, Color.WHITE, 0.1f);
@@ -98,21 +96,20 @@ public class Bike extends GameEntity implements Actor {
 				leftHandGraphics.draw(canvas);
 				rightHandGraphics.draw(canvas);
 			}
-			}
-			else
-			{
-				Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
-				armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
-				armGraphics.setParent(this);
-				armGraphics.draw(canvas);	
-			}	
+		}
+		else
+		{
+			Polyline arm = new Polyline(getShoulderLocation(), getHandLocation());
+			armGraphics = new ShapeGraphics(arm, Color.WHITE, Color.WHITE, 0.1f);
+			armGraphics.setParent(this);
+			armGraphics.draw(canvas);	
+		}	
 
 
 		
-
+		//Draws the biker and the wheels
 		leftWheel.draw(canvas);
 		rightWheel.draw(canvas);
-//		billyGraphics.draw(canvas);
 		headGraphics.draw(canvas);
 		rearGraphics.draw(canvas);
 		leftLegGraphics.draw(canvas);
@@ -131,6 +128,7 @@ public class Bike extends GameEntity implements Actor {
 	}
 	
 	
+	//Following methods are used to draw the biker depending on certain parameters (for instance the orientation, or if the game is finished)
 	public Wheel getLeftWheel() {
 		return leftWheel;
 	}
@@ -260,7 +258,7 @@ public class Bike extends GameEntity implements Actor {
 		}
 	}
 
-	ContactListener listener = new ContactListener () {
+	ContactListener listener = new ContactListener () { //Anonymous class to get contact the bike has with other Entities
 
 		
 		@Override
@@ -269,7 +267,7 @@ public class Bike extends GameEntity implements Actor {
 			{
 				return;
 			}
-			//If in contact with the wheels
+			//If in contact with the wheels, nothing happens (it prevents the biker from dying from an unwanted contact with the wheels)
 			if (contact.getOther().getClass().equals(leftWheel.getClass()))
 			{
 				return;
@@ -284,10 +282,7 @@ public class Bike extends GameEntity implements Actor {
 			
 		@Override
 		public void endContact(Contact contact) {
-//			if (hit)
-//			{
-//				getEntity().destroy();
-//			}
+//			//Nothing needed here
 		}
 	};
 }

@@ -5,13 +5,15 @@ import java.awt.Color;
 import ch.epfl.cs107.play.game.actor.general.Bascule;
 import ch.epfl.cs107.play.game.actor.general.Bike;
 import ch.epfl.cs107.play.game.actor.general.Checkpoint;
-import ch.epfl.cs107.play.game.actor.general.Collectable;
+import ch.epfl.cs107.play.game.actor.general.Coin;
 import ch.epfl.cs107.play.game.actor.general.Crate;
 import ch.epfl.cs107.play.game.actor.general.Emitter;
 import ch.epfl.cs107.play.game.actor.general.Finish;
 import ch.epfl.cs107.play.game.actor.general.Nuage;
 import ch.epfl.cs107.play.game.actor.general.Pendule;
+import ch.epfl.cs107.play.game.actor.general.Pic;
 import ch.epfl.cs107.play.game.actor.general.Terrain;
+import ch.epfl.cs107.play.game.actor.general.Tremplin;
 import ch.epfl.cs107.play.math.Node;
 import ch.epfl.cs107.play.math.Transform;
 import ch.epfl.cs107.play.math.Vector;
@@ -40,7 +42,8 @@ public abstract class Level extends Node implements Actor {
 		graphics.setAlpha(alpha);
 		graphics.draw(canvas);
 	}
-
+	
+	//All of these methods are common to the levels and are used to allow an ActorGame to use these attributes
 	public abstract Bike getBike();
 	
 	public abstract Finish getFlag();
@@ -57,7 +60,15 @@ public abstract class Level extends Node implements Actor {
 	
 	public abstract Checkpoint getCheckpoint();
 	
-	public abstract Collectable getCollectable();
+	public abstract Coin getCoin1();
+	
+	public abstract Coin getCoin2();
+	
+	public abstract Coin getCoin3();
 	
 	public abstract Nuage getNuage();
+	
+	public abstract Pic getPic();
+	
+	public abstract Tremplin getTremplin();
 }

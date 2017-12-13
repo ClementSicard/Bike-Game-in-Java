@@ -18,21 +18,18 @@ import ch.epfl.cs107.play.window.Window;
 public class ScaleGame implements Game {
 
         private Window window;
-        
         private World world;
-        
         private Entity block, ball, plank;
-        
         private ImageGraphics blockGraphics, ballGraphics, plankGraphics;
         
         @Override
         public boolean begin(Window window, FileSystem fileSystem) {
                 this.window = window;
                 world = new World();
-                world.setGravity(new Vector(0.0f, -9.81f));
+                world.setGravity(new Vector(0.0f, -9.81f)); //Sets the gravity of the game
         
                 
-                
+                //Creates the ball as an Entity
                 EntityBuilder ballEntityBuilder = world.createEntityBuilder();
                 ballEntityBuilder.setFixed(false);
                 ballEntityBuilder.setPosition(new Vector(0.5f, 4.0f));
@@ -50,7 +47,7 @@ public class ScaleGame implements Game {
                 ballGraphics.setParent(ball);
         
                 
-                
+                //Creates the block as an Entity
                 EntityBuilder blockEntityBuilder = world.createEntityBuilder();
                 blockEntityBuilder.setFixed(true);
                 blockEntityBuilder.setPosition(new Vector(-5.0f, -1.0f));
@@ -75,7 +72,7 @@ public class ScaleGame implements Game {
                 
 
 
-
+                //Creates the plank as an entity
                 EntityBuilder plankEntityBuilder = world.createEntityBuilder();
                 plankEntityBuilder.setFixed(false);
                 plankEntityBuilder.setPosition(new Vector(-2.5f, 0.8f));
@@ -98,7 +95,7 @@ public class ScaleGame implements Game {
                 plankGraphics.setDepth(0.0f);
                 plankGraphics.setParent(plank);
                 
-               
+               //Creates the constraint between the plank and the block
                 RevoluteConstraintBuilder revoluteConstraintBuilder =
                 		world.createRevoluteConstraintBuilder () ;
                 		revoluteConstraintBuilder.setFirstEntity(block) ;

@@ -8,19 +8,17 @@ import ch.epfl.cs107.play.window.Canvas;
 import ch.epfl.cs107.play.math.Vector;
 
 
-public class Checkpoint extends Trigger implements Actor {
+public class Tremplin extends Trigger implements Actor {
 
 	private ImageGraphics graphics;
 	private BasicContactListener listener;
 	
-	public Checkpoint(ActorGame game, boolean fixed, Vector position, String name) {
+	public Tremplin(ActorGame game, Vector position) {
 		
-		super(game, fixed, position, 1.f, 1.f);
-		graphics = new ImageGraphics("flag.red.png", 1.f, 1.f);
-		graphics.setParent(this); 
+		super(game, true, position, 1.f, .4f); 
 		getOwner().addActor(this);
 		listener = new BasicContactListener();		
-		this.getEntity().addContactListener(listener);
+		this.getEntity().addContactListener(listener); //Used in order to record contacts with other Entities
 	}
 	
 	
@@ -32,6 +30,17 @@ public class Checkpoint extends Trigger implements Actor {
 	
 	@Override
 	public void draw(Canvas canvas) {
+		//The graphic representation changes whether the instance has a contact with the bike or not (normal/extended)
+		if (!this.getListener().hasContacts())
+		{
+			graphics = new ImageGraphics("jumper.normal.png", 1.f, 1.f);
+			graphics.setParent(this);
+		}
+		else
+		{
+			graphics = new ImageGraphics("jumper.extended.png", 1.f, 1.f);
+			graphics.setParent(this);
+		}
 		graphics.draw(canvas);
 	}
 	
